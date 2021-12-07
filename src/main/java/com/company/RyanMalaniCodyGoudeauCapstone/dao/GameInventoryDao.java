@@ -4,21 +4,14 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
 
 import java.util.List;
 
-public interface GameDao {
-
-    Game addGame(Game game);
+public interface GameInventoryDao {
 
     Game getGame(int id);
-
-    List<Game> getGames();
-
+    List<Game> getAllGames();
+    Game addGame(Game game);
     void updateGame(Game game);
-
     void deleteGame(int id);
-
     List<Game> getGamesByStudio(String studio);
-
-    List<Game> getGamesByESRB(String esrbRating);
-
+    List<Game> getGamesByESRB_Rating(String esrb_rating);
     List<Game> getGamesByTitle(String title);
 }

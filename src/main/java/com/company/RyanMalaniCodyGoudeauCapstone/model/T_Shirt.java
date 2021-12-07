@@ -3,9 +3,7 @@ package com.company.RyanMalaniCodyGoudeauCapstone.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class TShirt {
-
-    // properties
+public class T_Shirt {
 
     private int id;
     private String size;
@@ -13,8 +11,6 @@ public class TShirt {
     private String description;
     private BigDecimal price;
     private int quantity;
-
-    // getters and setters
 
     public int getId() {
         return id;
@@ -64,14 +60,12 @@ public class TShirt {
         this.quantity = quantity;
     }
 
-    // equals and hashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TShirt tshirt = (TShirt) o;
-        return getId() == tshirt.getId() && getQuantity() == tshirt.getQuantity() && Objects.equals(getSize(), tshirt.getSize()) && Objects.equals(getColor(), tshirt.getColor()) && Objects.equals(getDescription(), tshirt.getDescription()) && Objects.equals(getPrice(), tshirt.getPrice());
+        T_Shirt t_shirt = (T_Shirt) o;
+        return getId() == t_shirt.getId() && getQuantity() == t_shirt.getQuantity() && Objects.equals(getSize(), t_shirt.getSize()) && Objects.equals(getColor(), t_shirt.getColor()) && Objects.equals(getDescription(), t_shirt.getDescription()) && Objects.equals(getPrice(), t_shirt.getPrice());
     }
 
     @Override
@@ -79,11 +73,9 @@ public class TShirt {
         return Objects.hash(getId(), getSize(), getColor(), getDescription(), getPrice(), getQuantity());
     }
 
-    // toString
-
     @Override
     public String toString() {
-        return "TShirt{" +
+        return "T_Shirt{" +
                 "id=" + id +
                 ", size='" + size + '\'' +
                 ", color='" + color + '\'' +

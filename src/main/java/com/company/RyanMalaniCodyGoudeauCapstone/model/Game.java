@@ -1,21 +1,18 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Game {
 
-    // properties
-
     private int id;
     private String title;
-    private String esrbRating;
+    private String esrb_rating;
     private String description;
     private BigDecimal price;
     private String studio;
     private int quantity;
-
-    // getters and setters
 
     public int getId() {
         return id;
@@ -33,12 +30,12 @@ public class Game {
         this.title = title;
     }
 
-    public String getEsrbRating() {
-        return esrbRating;
+    public String getEsrb_rating() {
+        return esrb_rating;
     }
 
-    public void setEsrbRating(String esrbRating) {
-        this.esrbRating = esrbRating;
+    public void setEsrb_rating(String esrb_rating) {
+        this.esrb_rating = esrb_rating;
     }
 
     public String getDescription() {
@@ -73,33 +70,29 @@ public class Game {
         this.quantity = quantity;
     }
 
-    // equals and hashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return getId() == game.getId() && getQuantity() == game.getQuantity() && Objects.equals(getTitle(), game.getTitle()) && Objects.equals(getEsrbRating(), game.getEsrbRating()) && Objects.equals(getDescription(), game.getDescription()) && Objects.equals(getPrice(), game.getPrice()) && Objects.equals(getStudio(), game.getStudio());
+        return getId() == game.getId() && Objects.equals(getTitle(), game.getTitle()) && Objects.equals(getEsrb_rating(), game.getEsrb_rating()) && Objects.equals(getDescription(), game.getDescription()) && Objects.equals(getPrice(), game.getPrice()) && Objects.equals(getStudio(), game.getStudio()) && Objects.equals(getQuantity(), game.getQuantity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
+        return Objects.hash(getId(), getTitle(), getEsrb_rating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
-
-    // toString
 
     @Override
     public String toString() {
-        return "Game{" +
+        return "game{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", esrbRating='" + esrbRating + '\'' +
+                ", esrb_rating='" + esrb_rating + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", studio='" + studio + '\'' +
-                ", quantity=" + quantity +
+                ", quantity='" + quantity + '\'' +
                 '}';
     }
 }
