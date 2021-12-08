@@ -1,12 +1,17 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
+import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class InvoiceViewModel {
@@ -58,6 +63,9 @@ public class InvoiceViewModel {
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(9, 2)
     private BigDecimal total;
+    private List<Console> consoles = new ArrayList<>();
+    private List<Game> games = new ArrayList<>();
+    private List<T_Shirt> t_shirts = new ArrayList<>();
 
     // getters and setters
 
@@ -173,26 +181,50 @@ public class InvoiceViewModel {
         this.total = total;
     }
 
+    public List<Console> getConsoles() {
+        return consoles;
+    }
+
+    public void setConsoles(List<Console> consoles) {
+        this.consoles = consoles;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
+    public List<T_Shirt> getT_shirts() {
+        return t_shirts;
+    }
+
+    public void setT_shirts(List<T_Shirt> t_shirts) {
+        this.t_shirts = t_shirts;
+    }
     // equals and hashCode
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Invoice invoice = (Invoice) o;
-        return getId() == invoice.getId() && getItem_id() == invoice.getItem_id() && getQuantity() == invoice.getQuantity() && Objects.equals(getName(), invoice.getName()) && Objects.equals(getStreet(), invoice.getStreet()) && Objects.equals(getCity(), invoice.getCity()) && Objects.equals(getState(), invoice.getState()) && Objects.equals(getZipcode(), invoice.getZipcode()) && Objects.equals(getItem_type(), invoice.getItem_type()) && Objects.equals(getUnit_price(), invoice.getUnit_price()) && Objects.equals(getSubtotal(), invoice.getSubtotal()) && Objects.equals(getTax(), invoice.getTax()) && Objects.equals(getProcessing_fee(), invoice.getProcessing_fee()) && Objects.equals(getTotal(), invoice.getTotal());
+        InvoiceViewModel that = (InvoiceViewModel) o;
+        return id == that.id && item_id == that.item_id && quantity == that.quantity && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipcode, that.zipcode) && Objects.equals(item_type, that.item_type) && Objects.equals(unit_price, that.unit_price) && Objects.equals(subtotal, that.subtotal) && Objects.equals(tax, that.tax) && Objects.equals(processing_fee, that.processing_fee) && Objects.equals(total, that.total) && Objects.equals(consoles, that.consoles) && Objects.equals(games, that.games) && Objects.equals(t_shirts, that.t_shirts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getStreet(), getCity(), getState(), getZipcode(), getItem_type(), getItem_id(), getUnit_price(), getQuantity(), getSubtotal(), getTax(), getProcessing_fee(), getTotal());
+        return Objects.hash(id, name, street, city, state, zipcode, item_type, item_id, unit_price, quantity, subtotal, tax, processing_fee, total, consoles, games, t_shirts);
     }
+
 
     // toString
 
     @Override
     public String toString() {
-        return "Invoice{" +
+        return "InvoiceViewModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
@@ -207,6 +239,9 @@ public class InvoiceViewModel {
                 ", tax=" + tax +
                 ", processing_fee=" + processing_fee +
                 ", total=" + total +
+                ", consoles=" + consoles +
+                ", games=" + games +
+                ", t_shirts=" + t_shirts +
                 '}';
     }
 }
