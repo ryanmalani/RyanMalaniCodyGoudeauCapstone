@@ -1,62 +1,25 @@
-package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
+package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class InvoiceViewModel {
+public class Invoice {
 
     // properties
 
     private int id;
-    @NotEmpty(message = "You must supply a value for name.")
-    @Size(max = 80, message = "You must supply a value less than 80 characters.")
     private String name;
-    @NotEmpty(message = "You must supply a value for street.")
-    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String street;
-    @NotEmpty(message = "You must supply a value for city.")
-    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String city;
-    @NotEmpty(message = "You must supply a value for state.")
-    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String state;
-    @NotEmpty(message = "You must supply a value for zipcode.")
-    @Size(min = 5, max = 5, message = "You must supply a value with exactly 5 digits.")
     private String zipcode;
-    @NotEmpty(message = "You must supply a value for item type.")
-    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String item_type;
-    @NotEmpty(message = "You must supply a value for item id.")
-    @Size(max = 11, message = "You must supply a value less than 11 characters.")
     private int item_id;
-    @NotEmpty(message = "You must supply a value for unit price.")
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
     private BigDecimal unit_price;
-    @NotEmpty(message = "You must supply a value for quantity.")
-    @Size(max = 11, "You must supply a value less than 11 characters.")
     private int quantity;
-    @NotEmpty(message = "You must supply a value for subtotal.")
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(9, 2)
     private BigDecimal subtotal;
-    @NotEmpty(message = "You must supply a value for tax.")
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
     private BigDecimal tax;
-    @NotEmpty(message = "You must supply a value for processing fee.")
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
     private BigDecimal processing_fee;
-    @NotEmpty(message = "You must supply a value for total.")
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(9, 2)
     private BigDecimal total;
 
     // getters and setters

@@ -5,12 +5,16 @@ import java.util.Objects;
 
 public class T_Shirt {
 
+    // properties
+
     private int id;
     private String size;
     private String color;
     private String description;
     private BigDecimal price;
     private int quantity;
+
+    // getters and setters
 
     public int getId() {
         return id;
@@ -60,6 +64,8 @@ public class T_Shirt {
         this.quantity = quantity;
     }
 
+    // equals and hashCode
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +78,8 @@ public class T_Shirt {
     public int hashCode() {
         return Objects.hash(getId(), getSize(), getColor(), getDescription(), getPrice(), getQuantity());
     }
+
+    // toString
 
     @Override
     public String toString() {

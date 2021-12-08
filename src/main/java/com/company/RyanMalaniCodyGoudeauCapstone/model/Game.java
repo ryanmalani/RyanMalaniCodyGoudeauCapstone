@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class Game {
 
+    // properties
+
     private int id;
     private String title;
     private String esrb_rating;
@@ -13,6 +15,8 @@ public class Game {
     private BigDecimal price;
     private String studio;
     private int quantity;
+
+    // getters and setters
 
     public int getId() {
         return id;
@@ -70,6 +74,8 @@ public class Game {
         this.quantity = quantity;
     }
 
+    // equals and hashCode
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +88,8 @@ public class Game {
     public int hashCode() {
         return Objects.hash(getId(), getTitle(), getEsrb_rating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
+
+    // toString
 
     @Override
     public String toString() {

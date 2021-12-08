@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class Console {
 
+    // properties
+
     private int id;
     private String model;
     private String manufacturer;
@@ -12,6 +14,8 @@ public class Console {
     private String processor;
     private BigDecimal price;
     private int quantity;
+
+    // getters and setters
 
     public int getId() {
         return id;
@@ -69,6 +73,8 @@ public class Console {
         this.quantity = quantity;
     }
 
+    // equals and hashCode
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,6 +87,8 @@ public class Console {
     public int hashCode() {
         return Objects.hash(getId(), getModel(), getManufacturer(), getMemory_amount(), getProcessor(), getPrice(), getQuantity());
     }
+
+    // toString
 
     @Override
     public String toString() {
