@@ -1,22 +1,35 @@
-package com.company.RyanMalaniCodyGoudeauCapstone.model;
+package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class Game {
-
-    // properties
+public class GameViewModel {
 
     private int id;
+    @NotEmpty(message = "You must supply a value for title.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String title;
+    @NotEmpty(message = "You must supply a value for esrb rating.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String esrb_rating;
+    @NotEmpty(message = "You must supply a value for description.")
+    @Size(max = 255, message = "You must supply a value less than 255 characters.")
     private String description;
+    @NotEmpty(message = "You must supply a value for price.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(3, 2)
     private BigDecimal price;
+    @NotEmpty(message = "You must supply a value for studio")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String studio;
+    @Size(max = 11, message = "You must supply a value less than 11 digits.")
     private int quantity;
-
-    // getters and setters
 
     public int getId() {
         return id;
@@ -74,8 +87,6 @@ public class Game {
         this.quantity = quantity;
     }
 
-    // equals and hashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,8 +99,6 @@ public class Game {
     public int hashCode() {
         return Objects.hash(getId(), getTitle(), getEsrb_rating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
-
-    // toString
 
     @Override
     public String toString() {

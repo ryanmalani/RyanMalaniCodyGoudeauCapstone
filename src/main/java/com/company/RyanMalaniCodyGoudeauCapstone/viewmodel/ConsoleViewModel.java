@@ -1,21 +1,35 @@
-package com.company.RyanMalaniCodyGoudeauCapstone.model;
+package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Console {
-
-    // properties
+public class ConsoleViewModel {
 
     private int id;
+    @NotEmpty(message = "You must supply a value for model.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String model;
+    @NotEmpty(message = "You must supply a value for manufacturer.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String manufacturer;
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String memory_amount;
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String processor;
+    @NotEmpty(message = "You must supply a value for price.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(3, 2)
     private BigDecimal price;
+    @NotEmpty(message = "You must supply a value for quantity.")
+    @Size(max = 11, message = "You must supply a value less than 11 digits.")
     private int quantity;
-
-    // getters and setters
 
     public int getId() {
         return id;
@@ -73,8 +87,6 @@ public class Console {
         this.quantity = quantity;
     }
 
-    // equals and hashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,8 +99,6 @@ public class Console {
     public int hashCode() {
         return Objects.hash(getId(), getModel(), getManufacturer(), getMemory_amount(), getProcessor(), getPrice(), getQuantity());
     }
-
-    // toString
 
     @Override
     public String toString() {
