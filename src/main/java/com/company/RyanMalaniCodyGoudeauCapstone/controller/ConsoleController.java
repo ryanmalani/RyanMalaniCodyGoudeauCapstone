@@ -17,8 +17,7 @@ public class ConsoleController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Console createConsole(@RequestBody Console console) {
-
-
+        return null;
     }
 
     // Read
