@@ -4,46 +4,48 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/games")
 public class GameController {
 
     // Create
 
-    @RequestMapping(value = "/games", method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Game createGame(@RequestBody Game game) {
+    public Game createGame(@RequestBody @Valid Game game) {
         return null;
     }
 
     // Read
 
-    @RequestMapping(value = "/games/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Game getGameById(@PathVariable int id) {
         return null;
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.GET)
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getAllGames() {
         return null;
     }
 
-    @RequestMapping(value = "/games/{studio}", method = RequestMethod.GET)
+    @GetMapping(value = "/{studio}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
         return null;
     }
 
-    @RequestMapping(value = "/games/{esrb_rating}", method = RequestMethod.GET)
+    @GetMapping(value = "/{esrb_rating}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb_rating) {
         return null;
     }
 
-    @RequestMapping(value = "/games/{title}", method = RequestMethod.GET)
+    @GetMapping(value = "/{title}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
         return null;
@@ -51,15 +53,15 @@ public class GameController {
 
     // Update
 
-    @RequestMapping(value = "/games", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateGame(@RequestBody Game game) {
+    public void updateGame(@PathVariable int id, @RequestBody @Valid Game game) {
         return null;
     }
 
     // Delete
 
-    @RequestMapping(value = "/games/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {
         return null;

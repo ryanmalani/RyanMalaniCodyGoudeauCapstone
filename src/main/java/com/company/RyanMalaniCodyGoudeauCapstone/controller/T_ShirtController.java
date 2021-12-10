@@ -4,40 +4,42 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/t_shirts")
 public class T_ShirtController {
 
     // Create
 
-    @RequestMapping(value = "/t_shirts", method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public T_Shirt createT_Shirt(@RequestBody T_Shirt t_shirt) {
+    public T_Shirt createT_Shirt(@RequestBody @Valid T_Shirt t_shirt) {
         return null;
     }
 
     // Read
 
-    @RequestMapping(value = "/t_shirts/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public T_Shirt getT_ShirtById(@PathVariable int id) {
         return null;
     }
 
-    @RequestMapping(value = "/t_shirts", method = RequestMethod.GET)
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<T_Shirt> getAllT_Shirts() {
         return null;
     }
 
-    @RequestMapping(value = "/t_shirts/{color}", method = RequestMethod.GET)
+    @GetMapping(value = "/{color}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<T_Shirt> getT_ShirtsByColor(@PathVariable String color) {
         return null;
     }
 
-    @RequestMapping(value = "/t_shirts/{size}", method = RequestMethod.GET)
+    @GetMapping(value = "/{size}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<T_Shirt> getT_ShirtsBySize(@PathVariable String size) {
         return null;
@@ -45,15 +47,15 @@ public class T_ShirtController {
 
     // Update
 
-    @RequestMapping(value = "/t_shirts", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateT_Shirt(@RequestBody T_Shirt t_shirt) {
+    public void updateT_Shirt(@PathVariable int id, @RequestBody @Valid T_Shirt t_shirt) {
         return null;
     }
 
     // Delete
 
-    @RequestMapping(value = "/t_shirts/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteT_Shirt(@PathVariable int id) {
         return null;

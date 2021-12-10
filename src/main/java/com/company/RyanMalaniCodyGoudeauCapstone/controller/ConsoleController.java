@@ -4,6 +4,7 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class ConsoleController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Console createConsole(@RequestBody Console console) {
+    public Console createConsole(@RequestBody @Valid Console console) {
         return null;
     }
 
@@ -42,9 +43,9 @@ public class ConsoleController {
 
     // Update
 
-    @PutMapping
+    @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console console) {
+    public void updateConsole(@PathVariable int id, @RequestBody @Valid Console console) {
         return null;
     }
 
