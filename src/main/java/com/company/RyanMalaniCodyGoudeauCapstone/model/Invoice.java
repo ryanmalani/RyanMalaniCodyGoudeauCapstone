@@ -5,8 +5,6 @@ import java.util.Objects;
 
 public class Invoice {
 
-    // properties
-
     private int id;
     private String name;
     private String street;
@@ -21,8 +19,6 @@ public class Invoice {
     private BigDecimal tax;
     private BigDecimal processing_fee;
     private BigDecimal total;
-
-    // getters and setters
 
     public int getId() {
         return id;
@@ -136,8 +132,6 @@ public class Invoice {
         this.total = total;
     }
 
-    // equals and hashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -150,8 +144,6 @@ public class Invoice {
     public int hashCode() {
         return Objects.hash(getId(), getName(), getStreet(), getCity(), getState(), getZipcode(), getItem_type(), getItem_id(), getUnit_price(), getQuantity(), getSubtotal(), getTax(), getProcessing_fee(), getTotal());
     }
-
-    // toString
 
     @Override
     public String toString() {
