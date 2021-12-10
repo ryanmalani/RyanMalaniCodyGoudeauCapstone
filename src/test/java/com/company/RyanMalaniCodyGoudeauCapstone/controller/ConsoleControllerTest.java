@@ -4,21 +4,31 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
+@WebMvcTest(ConsoleController.class)
 public class ConsoleControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    private List<Console> consoleList;
 
     @Before
     public void setUp() throws Exception {
@@ -49,6 +59,17 @@ public class ConsoleControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputConsole);
 
+        Console outputConsole = new Console();
+        outputConsole.setModel("Xbox One");
+        outputConsole.setManufacturer("Microsoft");
+        outputConsole.setMemory_amount("500GB");
+        outputConsole.setProcessor("AMD Jaguar");
+        outputConsole.setPrice("239.99");
+        outputConsole.setQuantity(1);
+        outputConsole.setId(2);
+
+        String outputJson = objectMapper.writeValueAsString(outputConsole)
+
         // ACT
         mockMvc.perform(
                 post("/consoles") // perform post request
@@ -56,11 +77,12 @@ public class ConsoleControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
         )
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(content().json(outputJson)); // ASSERT
     }
 
     @Test
-    public void shouldGetConsoleById() {
+    public void shouldGetConsoleById() throws Exception {
     }
 
     @Test
