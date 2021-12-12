@@ -162,7 +162,7 @@ public class ConsoleControllerTest {
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("239.99");
+        inputConsole.setPrice("259.99");
         inputConsole.setQuantity(1);
         inputConsole.setId(2);
 

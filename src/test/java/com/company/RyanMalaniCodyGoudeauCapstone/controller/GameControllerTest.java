@@ -215,7 +215,7 @@ public class GameControllerTest {
         Game inputGame = new Game();
         inputGame.setTitle("Forza Horizon 5");
         inputGame.setEsrb_rating("E");
-        inputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
+        inputGame.setDescription("Race cars around the city and battle your friends online.");
         inputGame.setPrice("55.99");
         inputGame.setStudio("Turn10");
         inputGame.setQuantity(1);

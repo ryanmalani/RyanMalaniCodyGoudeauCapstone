@@ -178,7 +178,7 @@ public class T_ShirtControllerTest {
 
         // ARRANGE
         T_Shirt inputT_Shirt = new T_Shirt();
-        inputT_Shirt.setSize("S");
+        inputT_Shirt.setSize("M");
         inputT_Shirt.setColor("White");
         inputT_Shirt.setDescription("Plain White Tee");
         inputT_Shirt.setPrice("6.99");
