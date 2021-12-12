@@ -1,7 +1,6 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
-import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +43,8 @@ public class ConsoleControllerTest {
     private BigDecimal price;
     private int quantity;
      */
+
+    // testing POST /consoles
 
     @Test
     public void shouldCreateConsole() {
