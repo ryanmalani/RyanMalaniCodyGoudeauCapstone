@@ -183,12 +183,13 @@ public class T_ShirtControllerTest {
         inputT_Shirt.setDescription("Plain White Tee");
         inputT_Shirt.setPrice("6.99");
         inputT_Shirt.setQuantity(1);
+        inputT_Shirt.setId(2);
 
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
         mockMvc.perform(
-                        put("/t_shirts")
+                        put("/t_shirts/2")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -204,7 +205,6 @@ public class T_ShirtControllerTest {
         mockMvc.perform(delete("/records/5"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-
     }
 
     @Test
