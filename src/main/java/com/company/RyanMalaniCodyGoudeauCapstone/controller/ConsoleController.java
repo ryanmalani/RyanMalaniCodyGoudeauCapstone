@@ -1,6 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +13,18 @@ import java.util.List;
 @RequestMapping(value = "/consoles")
 public class ConsoleController {
 
-    private static int idCounter = 1;
+    @Autowired
+    ConsoleInventoryDao consoleDao;
 
     // Create
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Console createConsole(@RequestBody @Valid Console console) {
-        return null;
+
+        consoleDao.addConsole(console);
+
+        return console;
     }
 
     // Read
@@ -26,25 +32,41 @@ public class ConsoleController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Console getConsoleById(@PathVariable int id) {
-        return null;
+
+        return consoleDao.getConsole(id);
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Console> getAllConsoles() {
-        return null;
+
+        List<Console> consoleList = consoleDao.getAllConsoles();
+        return consoleList;
     }
 
     @GetMapping(value = "/{manufacturer}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {return null;}
+    public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
+
+        List<Console> consoleList = consoleDao.getConsolesByManufacturer(manufacturer);
+        return consoleList;
+    }
 
     // Update
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsole(@PathVariable int id, @RequestBody @Valid Console console) {
-        return null;
+
+        if(console.getId() == null) {
+            console.setId(id);
+        }
+
+        if (console.getId() != id) {
+            throw new IllegalArgumentException("Console ID must match parameter given.");
+        }
+
+        consoleDao.updateConsole(console);
     }
 
     // Delete
@@ -52,6 +74,7 @@ public class ConsoleController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable int id) {
-        return null;
+
+        consoleDao.deleteConsole(id);
     }
 }

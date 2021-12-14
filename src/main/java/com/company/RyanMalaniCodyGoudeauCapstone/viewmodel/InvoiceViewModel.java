@@ -4,6 +4,7 @@ import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
+import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -18,6 +19,7 @@ public class InvoiceViewModel {
 
     // properties
 
+    @Id
     private int id;
     @NotEmpty(message = "You must supply a value for name.")
     @Size(max = 80, message = "You must supply a value less than 80 characters.")

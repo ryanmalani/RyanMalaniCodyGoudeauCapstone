@@ -1,6 +1,7 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
+import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 public class GameViewModel {
 
+    @Id
     private int id;
     @NotEmpty(message = "You must supply a value for title.")
     @Size(max = 50, message = "You must supply a value less than 50 characters.")

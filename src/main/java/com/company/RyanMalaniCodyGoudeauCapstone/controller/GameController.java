@@ -1,9 +1,12 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.dao.GameInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -11,12 +14,18 @@ import java.util.List;
 @RequestMapping(value = "/games")
 public class GameController {
 
+    @Autowired
+    GameInventoryDao gameDao;
+
     // Create
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Game createGame(@RequestBody @Valid Game game) {
-        return null;
+
+        gameDao.addGame(game);
+
+        return game;
     }
 
     // Read
@@ -24,31 +33,44 @@ public class GameController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Game getGameById(@PathVariable int id) {
-        return null;
+
+        return gameDao.getGame(id);
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getAllGames() {
-        return null;
+
+        List<Game> gameList = gameDao.getAllGames();
+
+        return gameList;
     }
 
     @GetMapping(value = "/{studio}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
-        return null;
+
+        List<Game> gameList = gameDao.getGamesByStudio(studio);
+
+        return gameList;
     }
 
     @GetMapping(value = "/{esrb_rating}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb_rating) {
-        return null;
+
+        List<Game> gameList = gameDao.getGamesByESRB_Rating(esrb_rating);
+
+        return gameList;
     }
 
     @GetMapping(value = "/{title}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
-        return null;
+
+        List<Game> gameList = gameDao.getGamesByTitle(title);
+
+        return gameList;
     }
 
     // Update
@@ -56,7 +78,16 @@ public class GameController {
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateGame(@PathVariable int id, @RequestBody @Valid Game game) {
-        return null;
+
+        if(game.getId() == null) {
+            game.setId(id);
+        }
+
+        if(game.getId() != id) {
+            throw new IllegalArgumentException("Game ID must match parameter given.");
+        }
+
+        gameDao.updateGame(game);
     }
 
     // Delete
