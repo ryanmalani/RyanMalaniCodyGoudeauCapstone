@@ -1,6 +1,7 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
+import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 public class T_ShirtViewModel {
 
+    @Id
     private int id;
     @NotEmpty(message = "You must supply a value for size.")
     @Size(max = 20, message = "You must supply a value less than 20 characters.")
