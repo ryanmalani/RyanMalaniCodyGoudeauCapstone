@@ -2,6 +2,7 @@ package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
+import com.company.RyanMalaniCodyGoudeauCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpMethod;
@@ -43,11 +44,19 @@ public class InvoiceController {
     @RequestMapping(value = "/invoice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
+        
+        private InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
 
-        invoice.setId(idCounter++);
-        invoiceList.add(invoice);
+        invoiceViewModel.setName(invoice.getName());
+        invoiceViewModel.setStreet(invoice.getStreet());
+        invoiceViewModel.setCity(invoice.getCity();
+        invoiceViewModel.setState(invoice.getState());
+        invoiceViewModel.setZipcode(invoice.getZipcode());
+        invoiceViewModel.setItem_type(invoice.getItem_type());
+        invoiceViewModel.setItem_id(invoice.getItem_id());
+        invoiceViewModel.setQuantity(invoice.getQuantity());
 
-        return invoice;
+        return serviceLayer.createInvoice(invoiceViewModel);
     }
 
     // Read
