@@ -1,8 +1,9 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 public class ConsoleViewModel {
 
+    @Id
     private int id;
     @NotEmpty(message = "You must supply a value for model.")
     @Size(max = 50, message = "You must supply a value less than 50 characters.")
