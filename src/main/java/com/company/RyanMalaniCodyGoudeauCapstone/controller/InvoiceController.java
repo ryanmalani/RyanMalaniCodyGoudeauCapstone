@@ -1,6 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,14 @@ public class InvoiceController {
         invoiceList.add(new Invoice("Sam", "56th Street", "Salt Lake City", "Utah", "75836", "Console", 50, "499.99", 10, "499.99", "0.40", "0.40", "500.79", idCounter++));
         invoiceList.add(new Invoice("Robert", "King Road", "Des Moines", "Iowa", "85736", "Game", 14, "59.99", 600, "59.99", "0.40", "0.40", "60.79", idCounter++));
 
+    }
+
+    private ServiceLayer serviceLayer;
+
+    @Autowired
+    public InvoiceController(ServiceLayer serviceLayer) {
+
+        this.serviceLayer = serviceLayer;
     }
 
     // Create
