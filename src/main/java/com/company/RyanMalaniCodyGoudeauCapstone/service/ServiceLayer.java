@@ -1,10 +1,14 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.service;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.*;
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.InvoiceDao;
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
+import com.company.RyanMalaniCodyGoudeauCapstone.model.Processing_Fee;
+import com.company.RyanMalaniCodyGoudeauCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @Service
 public class ServiceLayer {
@@ -39,6 +43,68 @@ public class ServiceLayer {
         this.t_shirtInventoryDao = t_shirtInventoryDao;
     }
 
-    @Transactional
+    private double taxCalculation(double subtotal, double sales_tax_rate) {
+        return subtotal * sales_tax_rate;
+    }
 
+    private double getProcessing_Fee(int quantity, Processing_Fee processing_fee) {
+
+        if(quantity > 10) {
+
+            return processing_fee.getFee().doubleValue() + 15.49;
+        }
+        else {
+            return processing_fee.getFee().doubleValue();
+        }
+    }
+
+    @Transactional
+    public Invoice createInvoice(InvoiceViewModel invoiceViewModel) {
+
+        double subtotal = invoiceViewModel.getQuantity() * invoiceViewModel.getUnit_price().doubleValue();
+
+        double sales_tax_rate = sales_tax_rateDao.getSales_Tax_Rate(invoiceViewModel.getState()).getRate().doubleValue();
+        double tax = taxCalculation(subtotal, sales_tax_rate);
+
+        String item_type = invoiceViewModel.getItem_type();
+        double processing_fee = getProcessing_Fee(invoiceViewModel.getQuantity(), processing_feeDao.getProcessing_Fee(item_type));
+
+        double total = subtotal + tax + processing_fee;
+
+        // change quantity on hand
+
+        /*
+        private int id;
+        private String name;
+        private String street;
+        private String city;
+        private String state;
+        private String zipcode;
+        private String item_type;
+        private int item_id;
+        private BigDecimal unit_price;
+        private int quantity;
+        private BigDecimal subtotal;
+        private BigDecimal tax;
+        private BigDecimal processing_fee;
+        private BigDecimal total;
+         */
+
+        Invoice invoice = new Invoice();
+        invoice.setName(invoiceViewModel.getName());
+        invoice.setStreet(invoiceViewModel.getStreet());
+        invoice.setCity(invoiceViewModel.getCity());
+        invoice.setState(invoiceViewModel.getState());
+        invoice.setZipcode(invoiceViewModel.getZipcode());
+        invoice.setItem_type(invoiceViewModel.getItem_type());
+        invoice.setItem_id(invoiceViewModel.getItem_id());
+        invoice.setUnit_price(invoiceViewModel.getUnit_price());
+        invoice.setQuantity(invoiceViewModel.getQuantity());
+        invoice.setSubtotal(BigDecimal.valueOf(subtotal));
+        invoice.setTax(BigDecimal.valueOf(tax));
+        invoice.setProcessing_fee(BigDecimal.valueOf(processing_fee));
+        invoice.setTotal(BigDecimal.valueOf(total));
+
+        return invoiceInventoryDao.addInvoice(invoice);
+    }
 }
