@@ -1,9 +1,7 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.service;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.GameInventoryDao;
+import com.company.RyanMalaniCodyGoudeauCapstone.dao.*;
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.InvoiceDao;
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.T_ShirtInventoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +22,22 @@ public class ServiceLayer {
 
     private ConsoleInventoryDao consoleInventoryDao;
     private GameInventoryDao gameInventoryDao;
+    private InvoiceInventoryDao invoiceInventoryDao;
+    private Processing_FeeDao processing_feeDao;
+    private Sales_Tax_RateDao sales_tax_rateDao;
     private T_ShirtInventoryDao t_shirtInventoryDao;
-    private InvoiceDao invoiceDao;
+
+
+    @Autowired
+    public ServiceLayer(ConsoleInventoryDao consoleInventoryDao, GameInventoryDao gameInventoryDao, InvoiceInventoryDao invoiceInventoryDao, Processing_FeeDao processing_feeDao, Sales_Tax_RateDao sales_tax_rateDao, T_ShirtInventoryDao t_shirtInventoryDao) {
+
+        this.consoleInventoryDao = consoleInventoryDao;
+        this.gameInventoryDao = gameInventoryDao;
+        this.invoiceInventoryDao = invoiceInventoryDao;
+        this.processing_feeDao = processing_feeDao;
+        this.sales_tax_rateDao = sales_tax_rateDao;
+        this.t_shirtInventoryDao = t_shirtInventoryDao;
+    }
 
     @Transactional
 
