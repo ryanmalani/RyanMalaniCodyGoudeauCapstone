@@ -37,9 +37,7 @@ public class ConsoleController {
 
     @GetMapping(value = "/{manufacturer}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
-        return null;
-    }
+    public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {return null;}
 
     // Update
 
