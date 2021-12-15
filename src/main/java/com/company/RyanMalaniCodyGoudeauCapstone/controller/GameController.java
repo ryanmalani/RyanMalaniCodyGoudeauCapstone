@@ -14,8 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/games")
 public class GameController {
 
-    @Autowired
-    GameInventoryDao gameDao;
+    private GameInventoryDao gameDao;
 
     // Create
 

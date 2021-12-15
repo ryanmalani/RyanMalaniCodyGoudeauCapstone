@@ -39,29 +39,20 @@ public class InvoiceViewModel {
     @NotEmpty(message = "You must supply a value for item type.")
     @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String item_type;
-    @NotEmpty(message = "You must supply a value for item id.")
-    @Size(max = 11, message = "You must supply a value less than 11 characters.")
     private int item_id;
-    @NotEmpty(message = "You must supply a value for unit price.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 3,fraction = 2)
     private BigDecimal unit_price;
-    @NotEmpty(message = "You must supply a value for quantity.")
-    @Size(max = 11, message = "You must supply a value less than 11 characters.")
     private int quantity;
-    @NotEmpty(message = "You must supply a value for subtotal.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 9,fraction = 2)
     private BigDecimal subtotal;
-    @NotEmpty(message = "You must supply a value for tax.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 3,fraction = 2)
     private BigDecimal tax;
-    @NotEmpty(message = "You must supply a value for processing fee.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 3,fraction = 2)
     private BigDecimal processing_fee;
-    @NotEmpty(message = "You must supply a value for total.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 9,fraction = 2)
     private BigDecimal total;
