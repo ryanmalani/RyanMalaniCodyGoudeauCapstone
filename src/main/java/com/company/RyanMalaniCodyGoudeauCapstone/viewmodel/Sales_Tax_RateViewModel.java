@@ -17,7 +17,7 @@ public class Sales_Tax_RateViewModel {
     @Size(min = 2, max = 2, message = "You must supply the two letter abbreviation.")
     private String state;
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(1,2)
+    @Digits(integer = 1,fraction = 2)
     private BigDecimal rate;
 
     // getters and setters

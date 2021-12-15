@@ -25,7 +25,7 @@ public class T_ShirtViewModel {
     private String description;
     @NotEmpty(message = "You must supply a value for price.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal price;
     @NotEmpty(message = "You must supply a value for quantity.")
     @Size(max = 11, message = "You must supply a value less than 11 digits.")

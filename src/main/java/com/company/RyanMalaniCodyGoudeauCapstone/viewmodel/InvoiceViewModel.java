@@ -44,26 +44,26 @@ public class InvoiceViewModel {
     private int item_id;
     @NotEmpty(message = "You must supply a value for unit price.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal unit_price;
     @NotEmpty(message = "You must supply a value for quantity.")
-    @Size(max = 11, "You must supply a value less than 11 characters.")
+    @Size(max = 11, message = "You must supply a value less than 11 characters.")
     private int quantity;
     @NotEmpty(message = "You must supply a value for subtotal.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(9, 2)
+    @Digits(integer = 9,fraction = 2)
     private BigDecimal subtotal;
     @NotEmpty(message = "You must supply a value for tax.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal tax;
     @NotEmpty(message = "You must supply a value for processing fee.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal processing_fee;
     @NotEmpty(message = "You must supply a value for total.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(9, 2)
+    @Digits(integer = 9,fraction = 2)
     private BigDecimal total;
     private List<Console> consoles = new ArrayList<>();
     private List<Game> games = new ArrayList<>();

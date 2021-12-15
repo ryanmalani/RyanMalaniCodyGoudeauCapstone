@@ -15,7 +15,7 @@ public class Processing_FeeViewModel {
     @NotEmpty(message = "You must provide a value for product type.")
     @Size(max = 20, message = "You must provide a value less than 20 characters")
     private String productType;
-    @Digits(2, 2)
+    @Digits(integer = 2,fraction = 2)
     private BigDecimal fee;
 
     // getters and setters
