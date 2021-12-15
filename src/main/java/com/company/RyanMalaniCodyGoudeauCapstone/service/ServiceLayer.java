@@ -1,8 +1,7 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.service;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.*;
-import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
-import com.company.RyanMalaniCodyGoudeauCapstone.model.Processing_Fee;
+import com.company.RyanMalaniCodyGoudeauCapstone.model.*;
 import com.company.RyanMalaniCodyGoudeauCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +70,21 @@ public class ServiceLayer {
 
         double total = subtotal + tax + processing_fee;
 
-        // change quantity on hand
+        if(item_type.toLowerCase().equals("t_shirt")) {
+            T_Shirt purchasedT_Shirt = t_shirtInventoryDao.getT_Shirt(invoiceViewModel.getItem_id());
+            purchasedT_Shirt.setQuantity(purchasedT_Shirt.getQuantity() - invoiceViewModel.getQuantity());
+        }
+        else if(item_type.toLowerCase().equals("console")) {
+            Console purchasedConsole = consoleInventoryDao.getConsole(invoiceViewModel.getItem_id());
+            purchasedConsole.setQuantity(purchasedConsole.getQuantity() - invoiceViewModel.getQuantity());
+        }
+        else if(item_type.toLowerCase().equals("game")) {
+            Game purchasedGame = gameInventoryDao.getGame(invoiceViewModel.getItem_id());
+            purchasedGame.setQuantity(purchasedGame.getQuantity() - invoiceViewModel.getQuantity());
+        }
+        else {
+            throw new IllegalArgumentException("Item type must be t_shirt, console, or game.");
+        }
 
         /*
         private int id;

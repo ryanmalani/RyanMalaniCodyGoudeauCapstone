@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -56,7 +57,7 @@ public class ConsoleControllerTest {
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("239.99");
+        inputConsole.setPrice(new BigDecimal("239.99"));
         inputConsole.setQuantity(1);
 
         // Convert Java Object to JSON
@@ -67,7 +68,7 @@ public class ConsoleControllerTest {
         outputConsole.setManufacturer("Microsoft");
         outputConsole.setMemory_amount("500GB");
         outputConsole.setProcessor("AMD Jaguar");
-        outputConsole.setPrice("239.99");
+        outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
         outputConsole.setId(2);
 
@@ -94,7 +95,7 @@ public class ConsoleControllerTest {
         outputConsole.setManufacturer("Microsoft");
         outputConsole.setMemory_amount("500GB");
         outputConsole.setProcessor("AMD Jaguar");
-        outputConsole.setPrice("239.99");
+        outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
         outputConsole.setId(2);
 

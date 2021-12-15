@@ -44,7 +44,7 @@ public class InvoiceController {
     @RequestMapping(value = "/invoice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
-        
+
         private InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
 
         invoiceViewModel.setName(invoice.getName());
