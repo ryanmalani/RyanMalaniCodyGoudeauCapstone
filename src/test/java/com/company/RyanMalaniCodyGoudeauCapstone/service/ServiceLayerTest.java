@@ -42,7 +42,6 @@ public class ServiceLayerTest {
     }
 
 
-
     // helper methods
     @Test
     public void setUpConsoleInventoryDaoMock() {

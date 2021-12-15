@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@MockBean
 @RunWith(SpringRunner.class)
 @WebMvcTest(InvoiceController.class)
 public class InvoiceControllerTest {
@@ -34,6 +33,7 @@ public class InvoiceControllerTest {
 
     private List<Invoice> invoiceList;
 
+    @MockBean
     private ServiceLayer serviceLayer;
 
     @Before
