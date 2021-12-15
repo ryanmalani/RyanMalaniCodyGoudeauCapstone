@@ -30,20 +30,6 @@ public class T_Shirt {
     @Min(value = 0, message = "Quantity cannot be negative.")
     private int quantity;
 
-    //constructor
-    public T_Shirt(){}
-
-    //default constructor
-    public T_Shirt(String size, String color, String description, BigDecimal price, int quantity, int id){
-
-        this.size = size;
-        this.color = color;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.id = id;
-    }
-
     // getters and setters
 
     public int getId() {

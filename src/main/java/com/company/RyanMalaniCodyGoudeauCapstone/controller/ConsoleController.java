@@ -58,9 +58,11 @@ public class ConsoleController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsole(@PathVariable int id, @RequestBody @Valid Console console) {
 
+
 //        if (console.getId() == null) {
 //            console.setId(id);
 //        }
+
         if (console.getId() != id) {
             throw new IllegalArgumentException("Console ID must match parameter given.");
         }

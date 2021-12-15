@@ -95,6 +95,7 @@ public class GameController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {
-        return null;
+
+        gameDao.deleteGame(id);
     }
 }

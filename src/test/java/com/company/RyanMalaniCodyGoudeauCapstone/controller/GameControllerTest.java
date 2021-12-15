@@ -1,16 +1,19 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@MockBean
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
 public class GameControllerTest {
@@ -29,6 +33,8 @@ public class GameControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<Game> gameList;
+
+    private ServiceLayer serviceLayer;
 
     @Before
     public void setUp() throws Exception {
@@ -47,7 +53,7 @@ public class GameControllerTest {
     // testing POST /games
 
     @Test
-    public void shouldCreateGame() {
+    public void shouldCreateGame() throws Exception {
 
         // ARRANGE
 
@@ -55,7 +61,7 @@ public class GameControllerTest {
         inputGame.setTitle("Forza Horizon 5");
         inputGame.setEsrb_rating("E");
         inputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        inputGame.setPrice("55.99");
+        inputGame.setPrice(new BigDecimal("55.99"));
         inputGame.setStudio("Turn10");
         inputGame.setQuantity(1);
 
@@ -66,7 +72,7 @@ public class GameControllerTest {
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
         outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice("55.99");
+        outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
         outputGame.setId(2);
@@ -96,7 +102,7 @@ public class GameControllerTest {
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
         outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice("55.99");
+        outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
         outputGame.setId(2);
@@ -114,14 +120,14 @@ public class GameControllerTest {
     // testing GET /games
 
     @Test
-    public void shouldGetAllGames() {
+    public void shouldGetAllGames() throws Exception{
 
         String outputJson = objectMapper.writeValueAsString(gameList);
 
         mockMvc.perform(get("/games")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
-                .andExpect(content().json(outputJson)) // expect the object back
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing GET /games/{studio}
@@ -135,7 +141,7 @@ public class GameControllerTest {
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
         outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice("55.99");
+        outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
         outputGame.setId(2);
@@ -161,7 +167,7 @@ public class GameControllerTest {
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
         outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice("55.99");
+        outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
         outputGame.setId(2);
@@ -187,7 +193,7 @@ public class GameControllerTest {
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
         outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice("55.99");
+        outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
         outputGame.setId(2);
@@ -216,7 +222,7 @@ public class GameControllerTest {
         inputGame.setTitle("Forza Horizon 5");
         inputGame.setEsrb_rating("E");
         inputGame.setDescription("Race cars around the city and battle your friends online.");
-        inputGame.setPrice("55.99");
+        inputGame.setPrice(new BigDecimal("55.99"));
         inputGame.setStudio("Turn10");
         inputGame.setQuantity(1);
         inputGame.setId(2);
@@ -253,7 +259,7 @@ public class GameControllerTest {
         Game inputGame = new Game();
         inputGame.setEsrb_rating("E");
         inputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        inputGame.setPrice("55.99");
+        inputGame.setPrice(new BigDecimal("55.99"));
         inputGame.setStudio("Turn10");
         inputGame.setQuantity(1);
 
@@ -288,7 +294,7 @@ public class GameControllerTest {
         inputGame.setTitle("Forza Horizon 5");
         inputGame.setEsrb_rating("Rated E");
         inputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        inputGame.setPrice("55.99");
+        inputGame.setPrice(new BigDecimal("55.99"));
         inputGame.setStudio("Turn 10 Studios");
         inputGame.setQuantity(1);
         inputGame.setId(2);
