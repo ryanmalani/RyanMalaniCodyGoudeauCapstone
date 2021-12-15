@@ -2,7 +2,6 @@ package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +20,7 @@ public class ConsoleController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public Console createConsole(@RequestBody @Valid Console console) {
 
-        consoleDao.addConsole(console);
-
-        return console;
+        return consoleDao.addConsole(console);
     }
 
     // Read

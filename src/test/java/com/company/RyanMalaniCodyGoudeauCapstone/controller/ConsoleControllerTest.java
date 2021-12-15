@@ -1,6 +1,5 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -165,13 +164,13 @@ public class ConsoleControllerTest {
         // ARRANGE
 
         Console inputConsole = new Console();
+        inputConsole.setId(2);
         inputConsole.setModel("Xbox One");
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
         inputConsole.setPrice(new BigDecimal("259.99"));
         inputConsole.setQuantity(1);
-        inputConsole.setId(2);
 
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputConsole);
