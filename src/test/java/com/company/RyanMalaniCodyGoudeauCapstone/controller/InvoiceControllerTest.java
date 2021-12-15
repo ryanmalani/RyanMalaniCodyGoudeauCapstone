@@ -1,16 +1,19 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@MockBean
 @RunWith(SpringRunner.class)
 @WebMvcTest(InvoiceController.class)
 public class InvoiceControllerTest {
@@ -29,6 +33,8 @@ public class InvoiceControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<Invoice> invoiceList;
+
+    private ServiceLayer serviceLayer;
 
     @Before
     public void setUp() throws Exception {
@@ -54,7 +60,7 @@ public class InvoiceControllerTest {
     // testing POST /invoice
 
     @Test
-    public void shouldCreateInvoice() {
+    public void shouldCreateInvoice() throws Exception {
 
         // ARRANGE
 
@@ -66,12 +72,12 @@ public class InvoiceControllerTest {
         inputInvoice.setZipcode("45241");
         inputInvoice.setItem_type("Console");
         inputInvoice.setItem_id(1);
-        inputInvoice.setUnit_price("239.99");
+        inputInvoice.setUnit_price(new BigDecimal("239.99"));
         inputInvoice.setQuantity(1);
-        inputInvoice.setSubtotal("239.99");
-        inputInvoice.setTax("6.84");
-        inputInvoice.setProcessing_fee("14.99");
-        inputInvoice.setTotal("261.82");
+        inputInvoice.setSubtotal(new BigDecimal("239.99"));
+        inputInvoice.setTax(new BigDecimal("6.84"));
+        inputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        inputInvoice.setTotal(new BigDecimal("261.82"));
 
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputInvoice);
@@ -84,12 +90,12 @@ public class InvoiceControllerTest {
         outputInvoice.setZipcode("45241");
         outputInvoice.setItem_type("Console");
         outputInvoice.setItem_id(1);
-        outputInvoice.setUnit_price("239.99");
+        outputInvoice.setUnit_price(new BigDecimal("239.99"));
         outputInvoice.setQuantity(1);
-        outputInvoice.setSubtotal("239.99");
-        outputInvoice.setTax("6.84");
-        outputInvoice.setProcessing_fee("14.99");
-        outputInvoice.setTotal("261.82");
+        outputInvoice.setSubtotal(new BigDecimal("239.99"));
+        outputInvoice.setTax(new BigDecimal("6.84"));
+        outputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        outputInvoice.setTotal(new BigDecimal("14.99"));
         outputInvoice.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputInvoice);
@@ -121,12 +127,12 @@ public class InvoiceControllerTest {
         outputInvoice.setZipcode("45241");
         outputInvoice.setItem_type("Console");
         outputInvoice.setItem_id(1);
-        outputInvoice.setUnit_price("239.99");
+        outputInvoice.setUnit_price(new BigDecimal("239.99"));
         outputInvoice.setQuantity(1);
-        outputInvoice.setSubtotal("239.99");
-        outputInvoice.setTax("6.84");
-        outputInvoice.setProcessing_fee("14.99");
-        outputInvoice.setTotal("261.82");
+        outputInvoice.setSubtotal(new BigDecimal("239.99"));
+        outputInvoice.setTax(new BigDecimal("6.84"));
+        outputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        outputInvoice.setTotal(new BigDecimal("261.82"));
         outputInvoice.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputInvoice);
@@ -142,14 +148,14 @@ public class InvoiceControllerTest {
     // testing GET /invoice
 
     @Test
-    public void shouldGetAllInvoices() {
+    public void shouldGetAllInvoices() throws Exception {
 
         String outputJson = objectMapper.writeValueAsString(invoiceList);
 
         mockMvc.perform(get("/invoice")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
-                .andExpect(content().json(outputJson)) // expect the object back
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing PUT /invoice/{id}
@@ -170,12 +176,12 @@ public class InvoiceControllerTest {
         inputInvoice.setZipcode("45241");
         inputInvoice.setItem_type("Console");
         inputInvoice.setItem_id(1);
-        inputInvoice.setUnit_price("239.99");
+        inputInvoice.setUnit_price(new BigDecimal("239.99"));
         inputInvoice.setQuantity(1);
-        inputInvoice.setSubtotal("239.99");
-        inputInvoice.setTax("6.84");
-        inputInvoice.setProcessing_fee("14.99");
-        inputInvoice.setTotal("261.82");
+        inputInvoice.setSubtotal(new BigDecimal("239.99"));
+        inputInvoice.setTax(new BigDecimal("6.84"));
+        inputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        inputInvoice.setTotal(new BigDecimal("261.82"));
         inputInvoice.setId(2);
 
         // Convert Java Object to JSON
@@ -215,12 +221,12 @@ public class InvoiceControllerTest {
         inputInvoice.setZipcode("45241");
         inputInvoice.setItem_type("Console");
         inputInvoice.setItem_id(1);
-        inputInvoice.setUnit_price("239.99");
+        inputInvoice.setUnit_price(new BigDecimal("239.99"));
         inputInvoice.setQuantity(1);
-        inputInvoice.setSubtotal("239.99");
-        inputInvoice.setTax("6.84");
-        inputInvoice.setProcessing_fee("14.99");
-        inputInvoice.setTotal("261.82");
+        inputInvoice.setSubtotal(new BigDecimal("239.99"));
+        inputInvoice.setTax(new BigDecimal("6.84"));
+        inputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        inputInvoice.setTotal(new BigDecimal("261.82"));
 
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputInvoice);
@@ -257,12 +263,12 @@ public class InvoiceControllerTest {
         inputInvoice.setZipcode("45241");
         inputInvoice.setItem_type("Console");
         inputInvoice.setItem_id(1);
-        inputInvoice.setUnit_price("239.99");
+        inputInvoice.setUnit_price(new BigDecimal("239.99"));
         inputInvoice.setQuantity(1);
-        inputInvoice.setSubtotal("239.99");
-        inputInvoice.setTax("6.84");
-        inputInvoice.setProcessing_fee("14.99");
-        inputInvoice.setTotal("261.82");
+        inputInvoice.setSubtotal(new BigDecimal("239.99"));
+        inputInvoice.setTax(new BigDecimal("6.84"));
+        inputInvoice.setProcessing_fee(new BigDecimal("14.99"));
+        inputInvoice.setTotal(new BigDecimal("261.82"));
         inputInvoice.setId(2);
 
         // Convert Java Object to JSON

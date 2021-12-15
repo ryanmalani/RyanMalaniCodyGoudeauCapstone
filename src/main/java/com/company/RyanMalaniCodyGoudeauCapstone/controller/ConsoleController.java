@@ -58,7 +58,7 @@ public class ConsoleController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsole(@PathVariable int id, @RequestBody @Valid Console console) {
 
-        if(console.getId() == null) {
+        if (console.getId() == id) {
             console.setId(id);
         }
 

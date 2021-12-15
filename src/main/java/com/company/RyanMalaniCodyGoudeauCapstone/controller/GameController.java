@@ -79,7 +79,7 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateGame(@PathVariable int id, @RequestBody @Valid Game game) {
 
-        if(game.getId() == null) {
+        if(game.getId() == id) {
             game.setId(id);
         }
 
@@ -95,6 +95,7 @@ public class GameController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {
-        return null;
+
+        gameDao.deleteGame(id);
     }
 }
