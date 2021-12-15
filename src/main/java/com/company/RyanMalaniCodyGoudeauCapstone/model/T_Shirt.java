@@ -1,5 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,11 +10,24 @@ public class T_Shirt {
 
     // properties
 
+    @Id
     private int id;
+    @NotEmpty(message = "You must supply a value for size.")
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String size;
+    @NotEmpty(message = "You must supply a value for color.")
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String color;
+    @NotEmpty(message = "You must supply a value for description.")
+    @Size(max = 255, message = "You must supply a value less than 255 characters.")
     private String description;
+    @NotEmpty(message = "You must supply a value for price.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(3, 2)
     private BigDecimal price;
+    @NotEmpty(message = "You must supply a value for quantity.")
+    @Size(max = 11, message = "You must supply a value less than 11 digits.")
+    @Min(value = 0, message = "Quantity cannot be negative.")
     private int quantity;
 
     //constructor
