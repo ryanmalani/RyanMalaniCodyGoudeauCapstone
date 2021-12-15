@@ -42,10 +42,6 @@ public class ServiceLayer {
         this.t_shirtInventoryDao = t_shirtInventoryDao;
     }
 
-    private double taxCalculation(double subtotal, double sales_tax_rate) {
-        return subtotal * sales_tax_rate;
-    }
-
     private double getProcessing_Fee(int quantity, Processing_Fee processing_fee) {
 
         if(quantity > 10) {
@@ -58,32 +54,75 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public Invoice createInvoice(InvoiceViewModel invoiceViewModel) {
-
-        double subtotal = invoiceViewModel.getQuantity() * invoiceViewModel.getUnit_price().doubleValue();
-
-        double sales_tax_rate = sales_tax_rateDao.getSales_Tax_Rate(invoiceViewModel.getState()).getRate().doubleValue();
-        double tax = taxCalculation(subtotal, sales_tax_rate);
+    public InvoiceViewModel createInvoice(InvoiceViewModel invoiceViewModel) {
 
         String item_type = invoiceViewModel.getItem_type();
-        double processing_fee = getProcessing_Fee(invoiceViewModel.getQuantity(), processing_feeDao.getProcessing_Fee(item_type));
 
-        double total = subtotal + tax + processing_fee;
-
-        if(item_type.toLowerCase().equals("t_shirt")) {
+        if(item_type.toLowerCase().equals("t-shirt")) {
             T_Shirt purchasedT_Shirt = t_shirtInventoryDao.getT_Shirt(invoiceViewModel.getItem_id());
-            purchasedT_Shirt.setQuantity(purchasedT_Shirt.getQuantity() - invoiceViewModel.getQuantity());
+            if(invoiceViewModel.getQuantity() <= purchasedT_Shirt.getQuantity()) {
+                purchasedT_Shirt.setQuantity(purchasedT_Shirt.getQuantity() - invoiceViewModel.getQuantity());
+                t_shirtInventoryDao.updateT_Shirt(purchasedT_Shirt);
+
+                double subtotal = invoiceViewModel.getQuantity() * invoiceViewModel.getUnit_price().doubleValue();
+
+                double sales_tax_rate = sales_tax_rateDao.getSales_Tax_Rate(invoiceViewModel.getState()).getRate().doubleValue();
+                double tax = subtotal * sales_tax_rate;
+
+                double processing_fee = getProcessing_Fee(invoiceViewModel.getQuantity(), processing_feeDao.getProcessing_Fee(item_type));
+
+                double total = subtotal + tax + processing_fee;
+
+                invoiceViewModel.setSubtotal(BigDecimal.valueOf(subtotal));
+                invoiceViewModel.setTax(BigDecimal.valueOf(tax));
+                invoiceViewModel.setProcessing_fee(BigDecimal.valueOf(processing_fee));
+                invoiceViewModel.setTotal(BigDecimal.valueOf(total));
+            }
         }
         else if(item_type.toLowerCase().equals("console")) {
             Console purchasedConsole = consoleInventoryDao.getConsole(invoiceViewModel.getItem_id());
-            purchasedConsole.setQuantity(purchasedConsole.getQuantity() - invoiceViewModel.getQuantity());
+            if(invoiceViewModel.getQuantity() <= purchasedConsole.getQuantity()) {
+                purchasedConsole.setQuantity(purchasedConsole.getQuantity() - invoiceViewModel.getQuantity());
+                consoleInventoryDao.updateConsole(purchasedConsole);
+
+                double subtotal = invoiceViewModel.getQuantity() * invoiceViewModel.getUnit_price().doubleValue();
+
+                double sales_tax_rate = sales_tax_rateDao.getSales_Tax_Rate(invoiceViewModel.getState()).getRate().doubleValue();
+                double tax = subtotal * sales_tax_rate;
+
+                double processing_fee = getProcessing_Fee(invoiceViewModel.getQuantity(), processing_feeDao.getProcessing_Fee(item_type));
+
+                double total = subtotal + tax + processing_fee;
+
+                invoiceViewModel.setSubtotal(BigDecimal.valueOf(subtotal));
+                invoiceViewModel.setTax(BigDecimal.valueOf(tax));
+                invoiceViewModel.setProcessing_fee(BigDecimal.valueOf(processing_fee));
+                invoiceViewModel.setTotal(BigDecimal.valueOf(total));
+            }
         }
         else if(item_type.toLowerCase().equals("game")) {
             Game purchasedGame = gameInventoryDao.getGame(invoiceViewModel.getItem_id());
-            purchasedGame.setQuantity(purchasedGame.getQuantity() - invoiceViewModel.getQuantity());
+            if(invoiceViewModel.getQuantity() <= purchasedGame.getQuantity()) {
+                purchasedGame.setQuantity(purchasedGame.getQuantity() - invoiceViewModel.getQuantity());
+                gameInventoryDao.updateGame(purchasedGame);
+
+                double subtotal = invoiceViewModel.getQuantity() * invoiceViewModel.getUnit_price().doubleValue();
+
+                double sales_tax_rate = sales_tax_rateDao.getSales_Tax_Rate(invoiceViewModel.getState()).getRate().doubleValue();
+                double tax = subtotal * sales_tax_rate;
+
+                double processing_fee = getProcessing_Fee(invoiceViewModel.getQuantity(), processing_feeDao.getProcessing_Fee(item_type));
+
+                double total = subtotal + tax + processing_fee;
+
+                invoiceViewModel.setSubtotal(BigDecimal.valueOf(subtotal));
+                invoiceViewModel.setTax(BigDecimal.valueOf(tax));
+                invoiceViewModel.setProcessing_fee(BigDecimal.valueOf(processing_fee));
+                invoiceViewModel.setTotal(BigDecimal.valueOf(total));
+            }
         }
         else {
-            throw new IllegalArgumentException("Item type must be t_shirt, console, or game.");
+            throw new IllegalArgumentException("Item type must be t-shirt, console, or game.");
         }
 
         /*
@@ -103,21 +142,6 @@ public class ServiceLayer {
         private BigDecimal total;
          */
 
-        Invoice invoice = new Invoice();
-        invoice.setName(invoiceViewModel.getName());
-        invoice.setStreet(invoiceViewModel.getStreet());
-        invoice.setCity(invoiceViewModel.getCity());
-        invoice.setState(invoiceViewModel.getState());
-        invoice.setZipcode(invoiceViewModel.getZipcode());
-        invoice.setItem_type(invoiceViewModel.getItem_type());
-        invoice.setItem_id(invoiceViewModel.getItem_id());
-        invoice.setUnit_price(invoiceViewModel.getUnit_price());
-        invoice.setQuantity(invoiceViewModel.getQuantity());
-        invoice.setSubtotal(BigDecimal.valueOf(subtotal));
-        invoice.setTax(BigDecimal.valueOf(tax));
-        invoice.setProcessing_fee(BigDecimal.valueOf(processing_fee));
-        invoice.setTotal(BigDecimal.valueOf(total));
-
-        return invoiceInventoryDao.addInvoice(invoice);
+        return invoiceViewModel;
     }
 }

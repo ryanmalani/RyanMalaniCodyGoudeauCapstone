@@ -42,7 +42,9 @@ public class ServiceLayerTest {
     }
 
     @Test
-    public void
+    public void shouldCreateInvoice() {
+
+    }
 
     // helper methods
 
