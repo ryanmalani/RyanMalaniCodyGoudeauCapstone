@@ -1,16 +1,19 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@MockBean
 @RunWith(SpringRunner.class)
 @WebMvcTest(T_ShirtController.class)
 public class T_ShirtControllerTest {
@@ -29,6 +33,8 @@ public class T_ShirtControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<T_Shirt> t_shirtList;
+
+    private ServiceLayer serviceLayer;
 
     @Before
     public void setUp() throws Exception {
@@ -46,14 +52,14 @@ public class T_ShirtControllerTest {
     // testing POST /t_shirts
 
     @Test
-    public void shouldCreateT_Shirt() {
+    public void shouldCreateT_Shirt() throws Exception {
 
         // ARRANGE
         T_Shirt inputT_Shirt = new T_Shirt();
         inputT_Shirt.setSize("S");
         inputT_Shirt.setColor("White");
         inputT_Shirt.setDescription("Plain White Tee");
-        inputT_Shirt.setPrice("6.99");
+        inputT_Shirt.setPrice(new BigDecimal("6.99"));
         inputT_Shirt.setQuantity(1);
 
         // Convert Java Object to JSON
@@ -63,7 +69,7 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice("6.99");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
         outputT_Shirt.setId(2);
 
@@ -91,7 +97,7 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice("6.99");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
         outputT_Shirt.setId(2);
 
@@ -108,14 +114,14 @@ public class T_ShirtControllerTest {
     // testing GET /t_shirts
 
     @Test
-    public void shouldGetAllT_Shirts() {
+    public void shouldGetAllT_Shirts() throws Exception{
 
         String outputJson = objectMapper.writeValueAsString(t_shirtList);
 
         mockMvc.perform(get("/t_shirts")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
-                .andExpect(content().json(outputJson)) // expect the object back
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing GET /t_shirts/{color}
@@ -129,7 +135,7 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice("6.99");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
         outputT_Shirt.setId(2);
 
@@ -154,7 +160,7 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice("6.99");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
         outputT_Shirt.setId(2);
 
@@ -181,7 +187,7 @@ public class T_ShirtControllerTest {
         inputT_Shirt.setSize("M");
         inputT_Shirt.setColor("White");
         inputT_Shirt.setDescription("Plain White Tee");
-        inputT_Shirt.setPrice("6.99");
+        inputT_Shirt.setPrice(new BigDecimal("6.99"));
         inputT_Shirt.setQuantity(1);
         inputT_Shirt.setId(2);
 
@@ -213,7 +219,7 @@ public class T_ShirtControllerTest {
         T_Shirt inputT_Shirt = new T_Shirt();
         inputT_Shirt.setColor("White");
         inputT_Shirt.setDescription("Plain White Tee");
-        inputT_Shirt.setPrice("6.99");
+        inputT_Shirt.setPrice(new BigDecimal("6.99"));
         inputT_Shirt.setQuantity(1);
 
         // Convert Java Object to JSON
@@ -253,7 +259,7 @@ public class T_ShirtControllerTest {
         inputT_Shirt.setSize("S");
         inputT_Shirt.setColor("White");
         inputT_Shirt.setDescription("Plain White Tee");
-        inputT_Shirt.setPrice("6.99");
+        inputT_Shirt.setPrice(new BigDecimal("6.99"));
         inputT_Shirt.setQuantity(1);
         inputT_Shirt.setId(2);
 

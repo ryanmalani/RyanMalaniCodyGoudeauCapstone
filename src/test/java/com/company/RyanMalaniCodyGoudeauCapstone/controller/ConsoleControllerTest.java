@@ -1,16 +1,19 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@MockBean
 @RunWith(SpringRunner.class)
 @WebMvcTest(ConsoleController.class)
 public class ConsoleControllerTest {
@@ -29,6 +33,8 @@ public class ConsoleControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<Console> consoleList;
+
+    private ServiceLayer serviceLayer;
 
     @Before
     public void setUp() throws Exception {
@@ -47,7 +53,7 @@ public class ConsoleControllerTest {
     // testing POST /consoles
 
     @Test
-    public void shouldCreateConsole() {
+    public void shouldCreateConsole() throws Exception {
 
         // ARRANGE
 
@@ -56,7 +62,7 @@ public class ConsoleControllerTest {
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("239.99");
+        inputConsole.setPrice(new BigDecimal("239.99"));
         inputConsole.setQuantity(1);
 
         // Convert Java Object to JSON
@@ -67,11 +73,11 @@ public class ConsoleControllerTest {
         outputConsole.setManufacturer("Microsoft");
         outputConsole.setMemory_amount("500GB");
         outputConsole.setProcessor("AMD Jaguar");
-        outputConsole.setPrice("239.99");
+        outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
         outputConsole.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputConsole)
+        String outputJson = objectMapper.writeValueAsString(outputConsole);
 
         // ACT
         mockMvc.perform(
@@ -94,7 +100,7 @@ public class ConsoleControllerTest {
         outputConsole.setManufacturer("Microsoft");
         outputConsole.setMemory_amount("500GB");
         outputConsole.setProcessor("AMD Jaguar");
-        outputConsole.setPrice("239.99");
+        outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
         outputConsole.setId(2);
 
@@ -111,14 +117,14 @@ public class ConsoleControllerTest {
     // testing GET /consoles
 
     @Test
-    public void shouldGetAllConsoles() {
+    public void shouldGetAllConsoles() throws Exception {
 
         String outputJson = objectMapper.writeValueAsString(consoleList);
 
         mockMvc.perform(get("/consoles")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
-                .andExpect(content().json(outputJson)) // expect the object back
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing GET /consoles/{manufacturer}
@@ -133,7 +139,7 @@ public class ConsoleControllerTest {
         outputConsole.setManufacturer("Microsoft");
         outputConsole.setMemory_amount("500GB");
         outputConsole.setProcessor("AMD Jaguar");
-        outputConsole.setPrice("239.99");
+        outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
         outputConsole.setId(2);
 
@@ -162,7 +168,7 @@ public class ConsoleControllerTest {
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("259.99");
+        inputConsole.setPrice(new BigDecimal("259.99"));
         inputConsole.setQuantity(1);
         inputConsole.setId(2);
 
@@ -199,7 +205,7 @@ public class ConsoleControllerTest {
         inputConsole.setModel("Xbox One");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("239.99");
+        inputConsole.setPrice(new BigDecimal("239.99"));
         inputConsole.setQuantity(1);
 
         // Convert Java Object to JSON
@@ -234,7 +240,7 @@ public class ConsoleControllerTest {
         inputConsole.setManufacturer("Microsoft");
         inputConsole.setMemory_amount("500GB");
         inputConsole.setProcessor("AMD Jaguar");
-        inputConsole.setPrice("239.99");
+        inputConsole.setPrice(new BigDecimal("239.99"));
         inputConsole.setQuantity(1);
         inputConsole.setId(2);
 
