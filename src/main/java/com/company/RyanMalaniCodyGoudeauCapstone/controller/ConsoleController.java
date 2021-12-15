@@ -13,8 +13,7 @@ import java.util.List;
 @RequestMapping(value = "/consoles")
 public class ConsoleController {
 
-    @Autowired
-    ConsoleInventoryDao consoleDao;
+    private ConsoleInventoryDao consoleDao;
 
     // Create
 

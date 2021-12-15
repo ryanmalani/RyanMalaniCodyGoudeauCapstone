@@ -22,12 +22,9 @@ public class Console {
     private String memory_amount;
     @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String processor;
-    @NotEmpty(message = "You must supply a value for price.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 3,fraction = 2)
     private BigDecimal price;
-    @NotEmpty(message = "You must supply a value for quantity.")
-    @Size(max = 11, message = "You must supply a value less than 11 digits.")
     @Min(value = 0, message = "Quantity cannot be negative.")
     private int quantity;
 

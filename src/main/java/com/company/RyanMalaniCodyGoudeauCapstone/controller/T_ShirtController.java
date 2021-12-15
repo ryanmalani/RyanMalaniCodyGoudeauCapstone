@@ -14,8 +14,8 @@ import java.util.List;
 @RequestMapping(value = "/t_shirts")
 public class T_ShirtController {
 
-    @Autowired
-    T_ShirtInventoryDao t_shirtInventoryDao;
+
+    private T_ShirtInventoryDao t_shirtInventoryDao;
 
     // Create
 

@@ -16,8 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/invoice")
 public class InvoiceController {
 
-    @Autowired
-    InvoiceInventoryDao invoiceDao;
+    private InvoiceInventoryDao invoiceDao;
 
     private ServiceLayer serviceLayer;
 
