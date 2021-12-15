@@ -41,37 +41,36 @@ public class ServiceLayerTest {
         serviceLayer = new ServiceLayer(consoleInventoryDao, gameInventoryDao, invoiceInventoryDao, processing_feeDao, sales_tax_rateDao, t_shirtInventoryDao);
     }
 
-    @Test
-    public void
+
 
     // helper methods
-
-    private void setUpConsoleInventoryDaoMock() {
+    @Test
+    public void setUpConsoleInventoryDaoMock() {
 
         consoleInventoryDao = mock(ConsoleInventoryJdbcTemplateDao.class);
     }
-
-    private void setUpGameInventoryDaoMock() {
+    @Test
+    public void setUpGameInventoryDaoMock() {
 
         gameInventoryDao = mock(GameInventoryJdbcTemplateDao.class);
     }
-
-    private void setUpInvoiceInventoryDaoMock() {
+    @Test
+    public void setUpInvoiceInventoryDaoMock() {
 
         invoiceInventoryDao = mock(InvoiceInventoryJdbcTemplateDao.class);
     }
-
-    private void setUpProcessing_FeeDaoMock() {
+    @Test
+    public void setUpProcessing_FeeDaoMock() {
 
         processing_feeDao = mock(Processing_FeeJdbcTemplateDaoImpl.class);
     }
-
-    private void setUpSales_Tax_RateDaoMock() {
+    @Test
+    public void setUpSales_Tax_RateDaoMock() {
 
         sales_tax_rateDao = mock(Sales_Tax_RateJdbcTemplateDaoImpl.class);
     }
-
-    private void setUpT_ShirtInventoryDaoMock() {
+    @Test
+    public void setUpT_ShirtInventoryDaoMock() {
 
         t_shirtInventoryDao = mock(T_ShirtInventoryJdbcTemplateDao.class);
     }
