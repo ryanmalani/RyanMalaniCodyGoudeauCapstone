@@ -68,9 +68,9 @@ public class T_ShirtController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateT_Shirt(@PathVariable int id, @RequestBody @Valid T_Shirt t_shirt) {
 
-        if (t_shirt.getId() == id) {
-            t_shirt.setId(id);
-        }
+//        if (t_shirt.getId() == id) {
+//            t_shirt.setId(id);
+//        }
 
         if (t_shirt.getId() != id) {
             throw new IllegalArgumentException("T_Shirt ID must match parameter given.");
