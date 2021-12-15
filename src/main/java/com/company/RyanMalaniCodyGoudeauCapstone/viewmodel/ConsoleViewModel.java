@@ -3,7 +3,6 @@ package com.company.RyanMalaniCodyGoudeauCapstone.viewmodel;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +26,7 @@ public class ConsoleViewModel {
     private String processor;
     @NotEmpty(message = "You must supply a value for price.")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(3, 2)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal price;
     @NotEmpty(message = "You must supply a value for quantity.")
     @Size(max = 11, message = "You must supply a value less than 11 digits.")

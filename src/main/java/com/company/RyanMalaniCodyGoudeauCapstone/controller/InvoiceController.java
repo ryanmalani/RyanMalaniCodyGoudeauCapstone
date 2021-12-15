@@ -39,11 +39,11 @@ public class InvoiceController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
 
-        private InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
+        InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
 
         invoiceViewModel.setName(invoice.getName());
         invoiceViewModel.setStreet(invoice.getStreet());
-        invoiceViewModel.setCity(invoice.getCity();
+        invoiceViewModel.setCity(invoice.getCity());
         invoiceViewModel.setState(invoice.getState());
         invoiceViewModel.setZipcode(invoice.getZipcode());
         invoiceViewModel.setItem_type(invoice.getItem_type());

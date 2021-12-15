@@ -1,5 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,12 +10,25 @@ public class Console {
 
     // properties
 
+    @Id
     private int id;
+    @NotEmpty(message = "You must supply a value for model.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String model;
+    @NotEmpty(message = "You must supply a value for manufacturer.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String manufacturer;
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String memory_amount;
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String processor;
+    @NotEmpty(message = "You must supply a value for price.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal price;
+    @NotEmpty(message = "You must supply a value for quantity.")
+    @Size(max = 11, message = "You must supply a value less than 11 digits.")
+    @Min(value = 0, message = "Quantity cannot be negative.")
     private int quantity;
 
     // getters and setters

@@ -1,5 +1,9 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,7 +11,11 @@ public class Sales_Tax_Rate {
 
     // properties
 
+    @NotEmpty(message = "You must supply a value for state.")
+    @Size(min = 2, max = 2, message = "You must supply the two letter abbreviation.")
     private String state;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 1,fraction = 2)
     private BigDecimal rate;
 
     // getters and setters

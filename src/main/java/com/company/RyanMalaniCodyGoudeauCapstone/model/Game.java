@@ -1,5 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -8,12 +11,27 @@ public class Game {
 
     // properties
 
+    @Id
     private int id;
+    @NotEmpty(message = "You must supply a value for title.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String title;
+    @NotEmpty(message = "You must supply a value for esrb rating.")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String esrb_rating;
+    @NotEmpty(message = "You must supply a value for description.")
+    @Size(max = 255, message = "You must supply a value less than 255 characters.")
     private String description;
+    @NotEmpty(message = "You must supply a value for price.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal price;
+    @NotEmpty(message = "You must supply a value for studio")
+    @Size(max = 50, message = "You must supply a value less than 50 characters.")
     private String studio;
+    @NotEmpty(message = "You must supply a value for quantity.")
+    @Size(max = 11, message = "You must supply a value less than 11 digits.")
+    @Min(value = 0, message = "Quantity cannot be negative.")
     private int quantity;
 
     // getters and setters

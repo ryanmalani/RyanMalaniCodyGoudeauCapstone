@@ -1,5 +1,8 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,7 +10,10 @@ public class Processing_Fee {
 
     // properties
 
+    @NotEmpty(message = "You must provide a value for product type.")
+    @Size(max = 20, message = "You must provide a value less than 20 characters")
     private String productType;
+    @Digits(integer = 2,fraction = 2)
     private BigDecimal fee;
 
     // getters and setters
