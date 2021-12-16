@@ -284,15 +284,6 @@ public class T_ShirtControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
-//        T_Shirt outputT_Shirt = new T_Shirt();
-//        outputT_Shirt.setColor("White");
-//        outputT_Shirt.setDescription("Plain White Tee");
-//        outputT_Shirt.setPrice("6.99");
-//        outputT_Shirt.setQuantity(1);
-//        outputT_Shirt.setId(2);
-//
-//        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
-
         // ACT
         mockMvc.perform(
                         post("/t_shirts")                                // perform the POST request
@@ -303,12 +294,12 @@ public class T_ShirtControllerTest {
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
 
-    @Test
-    public void shouldReturn404StatusCodeIfRecordNotFound() throws Exception {
-        mockMvc.perform(get("/t_shirts/0"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void shouldReturn404StatusCodeIfT_ShirtNotFound() throws Exception {
+//        mockMvc.perform(get("/t_shirts/id/0"))
+//                .andDo(print())
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {
