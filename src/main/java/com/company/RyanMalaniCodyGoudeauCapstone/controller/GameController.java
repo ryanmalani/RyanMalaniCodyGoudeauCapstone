@@ -2,6 +2,7 @@ package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.GameInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Game;
+import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,8 @@ import java.util.List;
 @RequestMapping(value = "/games")
 public class GameController {
 
-    private GameInventoryDao gameDao;
+    @Autowired
+    private ServiceLayer serviceLayer;
 
     // Create
 
@@ -22,7 +24,7 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public Game createGame(@RequestBody @Valid Game game) {
 
-        gameDao.addGame(game);
+        serviceLayer.addGame(game);
 
         return game;
     }
@@ -33,14 +35,14 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.OK)
     public Game getGameById(@PathVariable int id) {
 
-        return gameDao.getGame(id);
+        return serviceLayer.getGame(id);
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getAllGames() {
 
-        List<Game> gameList = gameDao.getAllGames();
+        List<Game> gameList = serviceLayer.getAllGames();
 
         return gameList;
     }
@@ -49,7 +51,7 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
 
-        List<Game> gameList = gameDao.getGamesByStudio(studio);
+        List<Game> gameList = serviceLayer.getGamesByStudio(studio);
 
         return gameList;
     }
@@ -58,7 +60,7 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb_rating) {
 
-        List<Game> gameList = gameDao.getGamesByESRB_Rating(esrb_rating);
+        List<Game> gameList = serviceLayer.getGamesByESRB_Rating(esrb_rating);
 
         return gameList;
     }
@@ -67,7 +69,7 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
 
-        List<Game> gameList = gameDao.getGamesByTitle(title);
+        List<Game> gameList = serviceLayer.getGamesByTitle(title);
 
         return gameList;
     }
@@ -86,7 +88,7 @@ public class GameController {
             throw new IllegalArgumentException("Game ID must match parameter given.");
         }
 
-        gameDao.updateGame(game);
+        serviceLayer.updateGame(game);
     }
 
     // Delete
@@ -95,6 +97,6 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {
 
-        gameDao.deleteGame(id);
+        serviceLayer.deleteGame(id);
     }
 }

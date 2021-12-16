@@ -20,57 +20,57 @@ public class ServiceLayerTest {
     The REST API must properly handle and report all violations of business rules.
      */
 
-    ServiceLayer serviceLayer;
-    ConsoleInventoryDao consoleInventoryDao;
-    GameInventoryDao gameInventoryDao;
-    InvoiceInventoryDao invoiceInventoryDao;
-    Processing_FeeDao processing_feeDao;
-    Sales_Tax_RateDao sales_tax_rateDao;
-    T_ShirtInventoryDao t_shirtInventoryDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        setUpConsoleInventoryDaoMock();
-        setUpGameInventoryDaoMock();
-        setUpInvoiceInventoryDaoMock();
-        setUpProcessing_FeeDaoMock();
-        setUpSales_Tax_RateDaoMock();
-        setUpT_ShirtInventoryDaoMock();
-
-        serviceLayer = new ServiceLayer(consoleInventoryDao, gameInventoryDao, invoiceInventoryDao, processing_feeDao, sales_tax_rateDao, t_shirtInventoryDao);
-    }
+//    ServiceLayer serviceLayer;
+//    ConsoleInventoryDao consoleInventoryDao;
+//    GameInventoryDao gameInventoryDao;
+//    InvoiceInventoryDao invoiceInventoryDao;
+//    Processing_FeeDao processing_feeDao;
+//    Sales_Tax_RateDao sales_tax_rateDao;
+//    T_ShirtInventoryDao t_shirtInventoryDao;
+//
+//    @Before
+//    public void setUp() throws Exception {
+//
+//        setUpConsoleInventoryDaoMock();
+//        setUpGameInventoryDaoMock();
+//        setUpInvoiceInventoryDaoMock();
+//        setUpProcessing_FeeDaoMock();
+//        setUpSales_Tax_RateDaoMock();
+//        setUpT_ShirtInventoryDaoMock();
+//
+//        serviceLayer = new ServiceLayer(consoleInventoryDao, gameInventoryDao, invoiceInventoryDao, processing_feeDao, sales_tax_rateDao, t_shirtInventoryDao);
+//    }
 
 
     // helper methods
-    @Test
-    public void setUpConsoleInventoryDaoMock() {
-
-        consoleInventoryDao = mock(ConsoleInventoryJdbcTemplateDao.class);
-    }
-    @Test
-    public void setUpGameInventoryDaoMock() {
-
-        gameInventoryDao = mock(GameInventoryJdbcTemplateDao.class);
-    }
-    @Test
-    public void setUpInvoiceInventoryDaoMock() {
-
-        invoiceInventoryDao = mock(InvoiceInventoryJdbcTemplateDao.class);
-    }
-    @Test
-    public void setUpProcessing_FeeDaoMock() {
-
-        processing_feeDao = mock(Processing_FeeJdbcTemplateDaoImpl.class);
-    }
-    @Test
-    public void setUpSales_Tax_RateDaoMock() {
-
-        sales_tax_rateDao = mock(Sales_Tax_RateJdbcTemplateDaoImpl.class);
-    }
-    @Test
-    public void setUpT_ShirtInventoryDaoMock() {
-
-        t_shirtInventoryDao = mock(T_ShirtInventoryJdbcTemplateDao.class);
-    }
+//    @Test
+//    public void setUpConsoleInventoryDaoMock() {
+//
+//        consoleInventoryDao = mock(ConsoleInventoryJdbcTemplateDao.class);
+//    }
+//    @Test
+//    public void setUpGameInventoryDaoMock() {
+//
+//        gameInventoryDao = mock(GameInventoryJdbcTemplateDao.class);
+//    }
+//    @Test
+//    public void setUpInvoiceInventoryDaoMock() {
+//
+//        invoiceInventoryDao = mock(InvoiceInventoryJdbcTemplateDao.class);
+//    }
+//    @Test
+//    public void setUpProcessing_FeeDaoMock() {
+//
+//        processing_feeDao = mock(Processing_FeeJdbcTemplateDaoImpl.class);
+//    }
+//    @Test
+//    public void setUpSales_Tax_RateDaoMock() {
+//
+//        sales_tax_rateDao = mock(Sales_Tax_RateJdbcTemplateDaoImpl.class);
+//    }
+//    @Test
+//    public void setUpT_ShirtInventoryDaoMock() {
+//
+//        t_shirtInventoryDao = mock(T_ShirtInventoryJdbcTemplateDao.class);
+//    }
 }

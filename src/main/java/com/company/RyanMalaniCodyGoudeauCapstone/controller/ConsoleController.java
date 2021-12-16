@@ -3,6 +3,7 @@ package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/consoles")
 public class ConsoleController {
 
+    @Autowired
     private ServiceLayer serviceLayer;
 
     // Create
@@ -26,7 +28,7 @@ public class ConsoleController {
 
     // Read
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Console getConsoleById(@PathVariable int id) {
 
@@ -41,7 +43,7 @@ public class ConsoleController {
         return consoleList;
     }
 
-    @GetMapping(value = "/{manufacturer}")
+    @GetMapping(value = "/manufacturer/{manufacturer}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
 

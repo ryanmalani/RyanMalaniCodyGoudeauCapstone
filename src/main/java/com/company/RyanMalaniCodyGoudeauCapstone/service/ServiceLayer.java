@@ -39,129 +39,129 @@ public class ServiceLayer {
 
     // CREATE console
 
-    @Override
+    //@Override
     public Console addConsole(Console console) {
-        return consoleInventoryDao.addConsole();
+        return consoleInventoryDao.addConsole(console);
     }
 
     // READ console
 
-    @Override
+    //@Override
     public Console getConsole(int console_id) {
         return consoleInventoryDao.getConsole(console_id);
     }
 
-    @Override
+    //@Override
     public List<Console> getAllConsoles() {
         return consoleInventoryDao.getAllConsoles();
     }
 
-    @Override
+    //@Override
     public List<Console> getConsolesByManufacturer(String manufacturer) {
         return consoleInventoryDao.getConsolesByManufacturer(manufacturer);
     }
 
     // UPDATE console
 
-    @Override
+    //@Override
     public void updateConsole(Console console) {
         consoleInventoryDao.updateConsole(console);
     }
 
     // DELETE console
 
-    @Override
+    //@Override
     public void deleteConsole(int console_id) {
         consoleInventoryDao.deleteConsole(console_id);
     }
 
     // CREATE game
 
-    @Override
+    //@Override
     public Game addGame(Game game) {
         return gameInventoryDao.addGame(game);
     }
 
     // READ game
 
-    @Override
+    //@Override
     public Game getGame(int game_id) {
         return gameInventoryDao.getGame(game_id);
     }
 
-    @Override
+    //@Override
     public List<Game> getAllGames() {
         return gameInventoryDao.getAllGames();
     }
 
-    @Override
+    //@Override
     public List<Game> getGamesByStudio(String studio) {
         return gameInventoryDao.getGamesByStudio(studio);
     }
 
-    @Override
+    //@Override
     public List<Game> getGamesByESRB_Rating(String esrb_rating) {
         return gameInventoryDao.getGamesByESRB_Rating(esrb_rating);
     }
 
-    @Override
+    //@Override
     public List<Game> getGamesByTitle(String title) {
         return gameInventoryDao.getGamesByTitle(title);
     }
 
     // UPDATE game
 
-    @Override
+    //@Override
     public void updateGame(Game game) {
         gameInventoryDao.updateGame(game);
     }
 
     // DELETE game
 
-    @Override
+   // @Override
     public void deleteGame(int game_id) {
         gameInventoryDao.deleteGame(game_id);
     }
 
     // CREATE t_shirt
 
-    @Override
+    //@Override
     public T_Shirt addT_Shirt(T_Shirt t_shirt) {
         return t_shirtInventoryDao.addT_Shirt(t_shirt);
     }
 
     // READ t_shirt
 
-    @Override
+    //@Override
     public T_Shirt getT_Shirt(int t_shirt_id) {
         return t_shirtInventoryDao.getT_Shirt(t_shirt_id);
     }
 
-    @Override
+    //@Override
     public List<T_Shirt> getAllT_Shirts() {
         return t_shirtInventoryDao.getAllT_Shirts();
     }
 
-    @Override
+    //@Override
     public List<T_Shirt> getT_ShirtsByColor(String color) {
         return t_shirtInventoryDao.getT_ShirtsByColor(color);
     }
 
-    @Override
+    //@Override
     public List<T_Shirt> getT_ShirtsBySize(String size) {
         return t_shirtInventoryDao.getT_ShirtsBySize(size);
     }
 
     // UPDATE t_shirt
 
-    @Override
+    //@Override
     public void updateT_Shirt(T_Shirt t_shirt) {
         t_shirtInventoryDao.updateT_Shirt(t_shirt);
     }
 
     // DELETE t_shirt
 
-    @Override
+    //@Override
     public void deleteT_Shirt(int t_shirt_id) {
         t_shirtInventoryDao.deleteT_Shirt(t_shirt_id);
     }
