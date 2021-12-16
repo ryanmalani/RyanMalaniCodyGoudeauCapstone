@@ -16,9 +16,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -36,6 +38,9 @@ public class T_ShirtControllerTest {
 
     @MockBean
     private ServiceLayer serviceLayer;
+
+    private List<T_Shirt> t_shirtList;
+    private List<T_Shirt> desiredT_ShirtList;
 
     @Before
     public void setUp() throws Exception {
@@ -90,13 +95,14 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
 
+        when(serviceLayer.getT_Shirt(1)).thenReturn(outputT_Shirt);
+
         // ACT
 
-        mockMvc.perform(get("/t_shirts/id/2")) // perform get request
+        mockMvc.perform(get("/t_shirts/id/1")) // perform get request
                         .andDo(print()) // print results to console
                         .andExpect(status().isOk()) // ASSERT status code is 200
                         .andExpect(content().json(outputJson)); // expect the object back
@@ -109,6 +115,13 @@ public class T_ShirtControllerTest {
 
         // ARRANGE
 
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
         T_Shirt outputT_Shirt = new T_Shirt();
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
@@ -116,7 +129,11 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
 
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
+        String outputJson = objectMapper.writeValueAsString(t_shirtList);
+
+        when(serviceLayer.getAllT_Shirts()).thenReturn(t_shirtList);
 
         // ACT
 
