@@ -76,10 +76,10 @@ public class ConsoleControllerTest {
 
         // ACT
         mockMvc.perform(
-                post("/consoles") // perform post request
-                        .content(inputJson)  // set request body
-                        .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
-        )
+                        post("/consoles") // perform post request
+                                .content(inputJson)  // set request body
+                                .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
+                )
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json(inputJson)); // ASSERT

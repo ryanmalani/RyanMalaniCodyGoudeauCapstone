@@ -78,10 +78,6 @@ public class GameController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateGame(@PathVariable int id, @RequestBody @Valid Game game) {
 
-//        if(game.getId() == null) {
-//            game.setId(id);
-//        }
-
         if(game.getId() != id) {
             throw new IllegalArgumentException("Game ID must match parameter given.");
         }

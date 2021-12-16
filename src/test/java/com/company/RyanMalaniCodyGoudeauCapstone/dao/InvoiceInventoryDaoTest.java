@@ -48,6 +48,8 @@ public class InvoiceInventoryDaoTest {
         invoice.setTotal(new BigDecimal("750.00"));
 
         invoice = dao.addInvoice(invoice);
+
+        assertNotNull(invoice);
         Invoice invoice1 = dao.getInvoice(invoice.getId());
 
         assertEquals(invoice, invoice1);
