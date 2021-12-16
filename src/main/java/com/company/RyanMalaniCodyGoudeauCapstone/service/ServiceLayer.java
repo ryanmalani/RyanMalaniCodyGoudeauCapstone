@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ServiceLayer {
@@ -23,23 +24,103 @@ public class ServiceLayer {
     The REST API must properly handle and report all violations of business rules.
      */
 
+    @Autowired
     private ConsoleInventoryDao consoleInventoryDao;
+    @Autowired
     private GameInventoryDao gameInventoryDao;
+    @Autowired
     private InvoiceInventoryDao invoiceInventoryDao;
+    @Autowired
     private Processing_FeeDao processing_feeDao;
+    @Autowired
     private Sales_Tax_RateDao sales_tax_rateDao;
+    @Autowired
     private T_ShirtInventoryDao t_shirtInventoryDao;
 
+    // CREATE console
 
-    @Autowired
-    public ServiceLayer(ConsoleInventoryDao consoleInventoryDao, GameInventoryDao gameInventoryDao, InvoiceInventoryDao invoiceInventoryDao, Processing_FeeDao processing_feeDao, Sales_Tax_RateDao sales_tax_rateDao, T_ShirtInventoryDao t_shirtInventoryDao) {
+    @Override
+    public Console addConsole(Console console) {
+        return consoleInventoryDao.addConsole();
+    }
 
-        this.consoleInventoryDao = consoleInventoryDao;
-        this.gameInventoryDao = gameInventoryDao;
-        this.invoiceInventoryDao = invoiceInventoryDao;
-        this.processing_feeDao = processing_feeDao;
-        this.sales_tax_rateDao = sales_tax_rateDao;
-        this.t_shirtInventoryDao = t_shirtInventoryDao;
+    // READ console
+
+    @Override
+    public Console getConsole(int console_id) {
+        return consoleInventoryDao.getConsole(console_id);
+    }
+
+    @Override
+    public List<Console> getAllConsoles() {
+        return consoleInventoryDao.getAllConsoles();
+    }
+
+    @Override
+    public List<Console> getConsolesByManufacturer(String manufacturer) {
+        return consoleInventoryDao.getConsolesByManufacturer(manufacturer);
+    }
+
+    // UPDATE console
+
+    @Override
+    public void updateConsole(Console console) {
+        consoleInventoryDao.updateConsole(console);
+    }
+
+    // DELETE console
+
+    @Override
+    public void deleteConsole(int console_id) {
+        consoleInventoryDao.deleteConsole(console_id);
+    }
+
+    // CREATE game
+
+    @Override
+    public Game addGame(Game game) {
+        gameInventoryDao.addGame(game);
+    }
+
+    // READ game
+
+    @Override
+    public Game getGame(int game_id) {
+        gameInventoryDao.getGame(game_id);
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        gameInventoryDao.getAllGames();
+    }
+
+    @Override
+    public List<Game> getGamesByStudio(String studio) {
+        gameInventoryDao.getGamesByStudio(studio);
+    }
+
+    @Override
+    public List<Game> getGamesByESRB_Rating(String esrb_rating) {
+        gameInventoryDao.getGamesByESRB_Rating(esrb_rating);
+    }
+
+    @Override
+    public List<Game> getGamesByTitle(String title) {
+        gameInventoryDao.getGamesByTitle(title);
+    }
+
+    // UPDATE game
+
+    @Override
+    public void updateGame(Game game) {
+        gameInventoryDao.updateGame(game);
+    }
+
+    // DELETE game
+
+    @Override
+    public void deleteGame(int game_id) {
+        gameInventoryDao.deleteGame(game_id);
     }
 
     private double getProcessing_Fee(int quantity, Processing_Fee processing_fee) {
