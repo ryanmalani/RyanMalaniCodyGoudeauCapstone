@@ -79,34 +79,34 @@ public class ServiceLayer {
 
     @Override
     public Game addGame(Game game) {
-        gameInventoryDao.addGame(game);
+        return gameInventoryDao.addGame(game);
     }
 
     // READ game
 
     @Override
     public Game getGame(int game_id) {
-        gameInventoryDao.getGame(game_id);
+        return gameInventoryDao.getGame(game_id);
     }
 
     @Override
     public List<Game> getAllGames() {
-        gameInventoryDao.getAllGames();
+        return gameInventoryDao.getAllGames();
     }
 
     @Override
     public List<Game> getGamesByStudio(String studio) {
-        gameInventoryDao.getGamesByStudio(studio);
+        return gameInventoryDao.getGamesByStudio(studio);
     }
 
     @Override
     public List<Game> getGamesByESRB_Rating(String esrb_rating) {
-        gameInventoryDao.getGamesByESRB_Rating(esrb_rating);
+        return gameInventoryDao.getGamesByESRB_Rating(esrb_rating);
     }
 
     @Override
     public List<Game> getGamesByTitle(String title) {
-        gameInventoryDao.getGamesByTitle(title);
+        return gameInventoryDao.getGamesByTitle(title);
     }
 
     // UPDATE game
@@ -121,6 +121,13 @@ public class ServiceLayer {
     @Override
     public void deleteGame(int game_id) {
         gameInventoryDao.deleteGame(game_id);
+    }
+
+    // CREATE t_shirt
+
+    @Override
+    public T_Shirt addT_Shirt(T_Shirt t_shirt) {
+        return
     }
 
     private double getProcessing_Fee(int quantity, Processing_Fee processing_fee) {
