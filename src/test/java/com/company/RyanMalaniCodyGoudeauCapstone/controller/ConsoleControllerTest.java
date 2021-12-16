@@ -23,12 +23,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ConsoleController.class)
+@WebMvcTest(controllers = ConsoleController.class)
 public class ConsoleControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<Console> consoleList;
