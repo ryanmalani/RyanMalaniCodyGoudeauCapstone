@@ -29,7 +29,7 @@ public class Processing_FeeJdbcTemplateDaoImpl implements Processing_FeeDao {
         try {
             return jdbcTemplate.queryForObject(SELECT_PROCESSING_FEE_SQL, this::mapRowToProcessingFee, product_type);
         } catch (EmptyResultDataAccessException e) {
-            throw new IllegalArgumentException("Product type must be t_shirt, console, or game");
+            throw new IllegalArgumentException("Product type must be T-Shirts, Consoles, or Games");
         }
     }
 

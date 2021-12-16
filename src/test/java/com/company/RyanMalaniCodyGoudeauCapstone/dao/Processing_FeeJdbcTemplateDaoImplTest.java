@@ -3,13 +3,18 @@ package com.company.RyanMalaniCodyGoudeauCapstone.dao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Processing_Fee;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 public class Processing_FeeJdbcTemplateDaoImplTest {
 
     @Autowired
@@ -29,7 +34,7 @@ public class Processing_FeeJdbcTemplateDaoImplTest {
 
         // ARRANGE
 
-        String product_type = "console";
+        String product_type = "Consoles";
         Processing_Fee desiredProcessing_Fee = new Processing_Fee();
         desiredProcessing_Fee.setProductType(product_type);
         desiredProcessing_Fee.setFee(new BigDecimal("14.99"));
