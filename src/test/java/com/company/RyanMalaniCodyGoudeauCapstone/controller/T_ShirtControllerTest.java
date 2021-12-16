@@ -150,15 +150,34 @@ public class T_ShirtControllerTest {
 
         // ARRANGE
 
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
         T_Shirt outputT_Shirt = new T_Shirt();
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        String desiredColor = outputT_Shirt.getColor();
+
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
+        t_shirtList.stream()
+                .forEach(t -> {
+                    if(t.getColor().equals(desiredColor)) {
+                        desiredT_ShirtList = Arrays.asList(t);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredT_ShirtList);
+
+        when(serviceLayer.getT_ShirtsByColor(desiredColor)).thenReturn(desiredT_ShirtList);
 
         // ACT
 
@@ -175,19 +194,38 @@ public class T_ShirtControllerTest {
 
         // ARRANGE
 
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
         T_Shirt outputT_Shirt = new T_Shirt();
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        String desiredSize = inputT_Shirt.getSize();
+
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
+        t_shirtList.stream()
+                .forEach(t -> {
+                    if(t.getSize().equals(desiredSize)) {
+                        desiredT_ShirtList = Arrays.asList(t);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredT_ShirtList);
+
+        when(serviceLayer.getT_ShirtsBySize(desiredSize)).thenReturn(desiredT_ShirtList);
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/size/S")) // perform get request
+        mockMvc.perform(get("/t_shirts/size/M")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
