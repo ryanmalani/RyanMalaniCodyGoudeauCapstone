@@ -64,16 +64,6 @@ public class T_ShirtControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
-        T_Shirt outputT_Shirt = new T_Shirt();
-        outputT_Shirt.setSize("S");
-        outputT_Shirt.setColor("White");
-        outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice(new BigDecimal("6.99"));
-        outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
-
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
-
         // ACT
         mockMvc.perform(
                         post("/t_shirts") // perform post request
@@ -82,10 +72,10 @@ public class T_ShirtControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().json(outputJson)); // ASSERT
+                .andExpect(content().json(inputJson)); // ASSERT
     }
 
-    // testing GET /t_shirts/{id}
+    // testing GET /t_shirts/id/{id}
 
     @Test
     public void shouldGetT_ShirtById() throws Exception {
@@ -104,7 +94,7 @@ public class T_ShirtControllerTest {
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/2")) // perform get request
+        mockMvc.perform(get("/t_shirts/id/2")) // perform get request
                         .andDo(print()) // print results to console
                         .andExpect(status().isOk()) // ASSERT status code is 200
                         .andExpect(content().json(outputJson)); // expect the object back
@@ -134,7 +124,7 @@ public class T_ShirtControllerTest {
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /t_shirts/{color}
+    // testing GET /t_shirts/color/{color}
 
     @Test
     public void shouldGetT_ShirtsByColor() throws Exception {
@@ -153,13 +143,13 @@ public class T_ShirtControllerTest {
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/White")) // perform get request
+        mockMvc.perform(get("/t_shirts/color/White")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /t_shirts/{size}
+    // testing GET /t_shirts/size/{size}
 
     @Test
     public void shouldGetT_ShirtsBySize() throws Exception {
@@ -178,7 +168,7 @@ public class T_ShirtControllerTest {
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/S")) // perform get request
+        mockMvc.perform(get("/t_shirts/size/S")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
