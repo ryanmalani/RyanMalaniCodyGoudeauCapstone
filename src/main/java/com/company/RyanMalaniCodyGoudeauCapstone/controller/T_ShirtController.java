@@ -1,6 +1,5 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.T_ShirtInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.T_Shirt;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,7 +1,5 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.InvoiceInventoryDao;
-import com.company.RyanMalaniCodyGoudeauCapstone.model.Invoice;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import com.company.RyanMalaniCodyGoudeauCapstone.viewmodel.InvoiceViewModel;
 
@@ -10,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/invoice")

@@ -1,6 +1,5 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.controller;
 
-import com.company.RyanMalaniCodyGoudeauCapstone.dao.ConsoleInventoryDao;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Console;
 import com.company.RyanMalaniCodyGoudeauCapstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
