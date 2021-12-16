@@ -221,6 +221,21 @@ public class ConsoleControllerTest {
     @Test
     public void shouldReturn404StatusCodeIfRecordNotFound() throws Exception {
 
+        // ARRANGE
+
+        Console outputConsole = new Console();
+        outputConsole.setModel("Xbox One");
+        outputConsole.setManufacturer("Microsoft");
+        outputConsole.setMemory_amount("500GB");
+        outputConsole.setProcessor("AMD Jaguar");
+        outputConsole.setPrice(new BigDecimal("239.99"));
+        outputConsole.setQuantity(1);
+        outputConsole.setId(2);
+
+        String outputJson = objectMapper.writeValueAsString(outputConsole);
+
+        // ACT
+
         mockMvc.perform(get("/consoles/id/100"))
                 .andDo(print())
                 .andExpect(status().isNotFound());

@@ -31,7 +31,7 @@ public class GameController {
 
     // Read
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Game getGameById(@PathVariable int id) {
 
@@ -47,7 +47,7 @@ public class GameController {
         return gameList;
     }
 
-    @GetMapping(value = "/{studio}")
+    @GetMapping(value = "/studio/{studio}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
 
@@ -56,7 +56,7 @@ public class GameController {
         return gameList;
     }
 
-    @GetMapping(value = "/{esrb_rating}")
+    @GetMapping(value = "/esrb_rating/{esrb_rating}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb_rating) {
 
@@ -65,7 +65,7 @@ public class GameController {
         return gameList;
     }
 
-    @GetMapping(value = "/{title}")
+    @GetMapping(value = "/title/{title}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
 

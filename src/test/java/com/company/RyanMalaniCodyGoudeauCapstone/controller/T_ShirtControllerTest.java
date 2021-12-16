@@ -29,9 +29,8 @@ public class T_ShirtControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    private List<T_Shirt> t_shirtList;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private ServiceLayer serviceLayer;
@@ -116,7 +115,18 @@ public class T_ShirtControllerTest {
     @Test
     public void shouldGetAllT_Shirts() throws Exception{
 
-        String outputJson = objectMapper.writeValueAsString(t_shirtList);
+        // ARRANGE
+
+        T_Shirt outputT_Shirt = new T_Shirt();
+        outputT_Shirt.setSize("S");
+        outputT_Shirt.setColor("White");
+        outputT_Shirt.setDescription("Plain White Tee");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
+        outputT_Shirt.setQuantity(1);
+
+        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+
+        // ACT
 
         mockMvc.perform(get("/t_shirts")) // perform get request
                 .andDo(print()) // print results to console
