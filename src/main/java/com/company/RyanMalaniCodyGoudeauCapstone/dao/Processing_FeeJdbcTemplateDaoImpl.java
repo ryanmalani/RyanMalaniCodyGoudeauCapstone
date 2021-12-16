@@ -33,9 +33,12 @@ public class Processing_FeeJdbcTemplateDaoImpl implements Processing_FeeDao {
         }
     }
 
-    public Processing_Fee mapRowToProcessingFee(ResultSet resultSet, int rowNum) throws SQLException {
-        return new Processing_Fee(
-                resultSet.getString("product_type"),
-                resultSet.getBigDecimal("fee"));
+    public Processing_Fee mapRowToProcessingFee(ResultSet rs, int rowNum) throws SQLException {
+
+        Processing_Fee processing_fee = new Processing_Fee();
+        processing_fee.setProductType(rs.getString("product_type"));
+        processing_fee.setFee(rs.getBigDecimal("fee"));
+
+        return processing_fee;
     }
 }
