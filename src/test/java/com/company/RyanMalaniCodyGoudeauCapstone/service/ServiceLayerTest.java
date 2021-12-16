@@ -41,7 +41,6 @@ public class ServiceLayerTest {
         serviceLayer = new ServiceLayer(consoleInventoryDao, gameInventoryDao, invoiceInventoryDao, processing_feeDao, sales_tax_rateDao, t_shirtInventoryDao);
     }
 
-
     // helper methods
     @Test
     public void setUpConsoleInventoryDaoMock() {
