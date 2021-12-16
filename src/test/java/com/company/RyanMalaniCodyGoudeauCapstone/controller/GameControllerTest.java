@@ -358,31 +358,6 @@ public class GameControllerTest {
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
 
-//    @Test
-//    public void shouldReturn404StatusCodeIfGameNotFound() throws Exception {
-//
-//        // ARRANGE
-//
-//        Game outputGame = new Game();
-//        outputGame.setTitle("Forza Horizon 5");
-//        outputGame.setEsrb_rating("E");
-//        outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-//        outputGame.setPrice(new BigDecimal("55.99"));
-//        outputGame.setStudio("Random");
-//        outputGame.setQuantity(1);
-//        outputGame.setId(2);
-//
-//        String outputJson = objectMapper.writeValueAsString(outputGame);
-//
-//        when(serviceLayer.getGamesByStudio(outputGame.getStudio())).thenReturn(outputGame);
-//
-//        // ACT
-//
-//        mockMvc.perform(get("/games/studio/Turn10"))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
-
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {
 

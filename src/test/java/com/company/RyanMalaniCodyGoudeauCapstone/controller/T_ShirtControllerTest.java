@@ -294,13 +294,6 @@ public class T_ShirtControllerTest {
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
 
-//    @Test
-//    public void shouldReturn404StatusCodeIfT_ShirtNotFound() throws Exception {
-//        mockMvc.perform(get("/t_shirts/id/0"))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
-
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {
 
