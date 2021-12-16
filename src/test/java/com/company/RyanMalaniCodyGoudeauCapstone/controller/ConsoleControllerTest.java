@@ -14,9 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,6 +36,9 @@ public class ConsoleControllerTest {
 
     @MockBean
     private ServiceLayer serviceLayer;
+
+    private List<Console> consoleList;
+    private List<Console> desiredConsoleList;
 
     @Before
     public void setUp() throws Exception {
@@ -91,22 +96,31 @@ public class ConsoleControllerTest {
         outputConsole.setProcessor("AMD Jaguar");
         outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
-        outputConsole.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputConsole);
 
+        when(serviceLayer.getConsole(1)).thenReturn(outputConsole);
+
         // ACT
 
-        mockMvc.perform(get("/consoles/id/2")) // perform get request
+        mockMvc.perform(get("/consoles/id/1")) // perform get request
                 .andDo(print()) // print results to console
-                .andExpect(status().isOk()); // ASSERT status code is 200
-                //.andExpect(content().json(outputJson)); // expect the object back
+                .andExpect(status().isOk()) // ASSERT status code is 200
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing GET /consoles
 
     @Test
     public void shouldGetAllConsoles() throws Exception {
+
+        Console inputConsole = new Console();
+        inputConsole.setModel("PlayStation 5");
+        inputConsole.setManufacturer("Sony");
+        inputConsole.setMemory_amount("825GB");
+        inputConsole.setProcessor("AMD Zen 2");
+        inputConsole.setPrice(new BigDecimal("731.99"));
+        inputConsole.setQuantity(1);
 
         Console outputConsole = new Console();
         outputConsole.setModel("Xbox One");
@@ -116,12 +130,16 @@ public class ConsoleControllerTest {
         outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
 
-        String outputJson = objectMapper.writeValueAsString(outputConsole);
+        consoleList = Arrays.asList(inputConsole, outputConsole);
+
+        String outputJson = objectMapper.writeValueAsString(consoleList);
+
+        when(serviceLayer.getAllConsoles()).thenReturn(consoleList);
 
         mockMvc.perform(get("/consoles")) // perform get request
                 .andDo(print()) // print results to console
-                .andExpect(status().isOk()); // ASSERT status code is 200
-                //.andExpect(content().json(outputJson)); // expect the object back
+                .andExpect(status().isOk()) // ASSERT status code is 200
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing GET /consoles/manufacturer/{manufacturer}
@@ -131,6 +149,14 @@ public class ConsoleControllerTest {
 
         // ARRANGE
 
+        Console inputConsole = new Console();
+        inputConsole.setModel("PlayStation 5");
+        inputConsole.setManufacturer("Sony");
+        inputConsole.setMemory_amount("825GB");
+        inputConsole.setProcessor("AMD Zen 2");
+        inputConsole.setPrice(new BigDecimal("731.99"));
+        inputConsole.setQuantity(1);
+
         Console outputConsole = new Console();
         outputConsole.setModel("Xbox One");
         outputConsole.setManufacturer("Microsoft");
@@ -139,14 +165,28 @@ public class ConsoleControllerTest {
         outputConsole.setPrice(new BigDecimal("239.99"));
         outputConsole.setQuantity(1);
 
-        String outputJson = objectMapper.writeValueAsString(outputConsole);
+        String desiredManufacturer = inputConsole.getManufacturer();
+
+        consoleList = Arrays.asList(inputConsole, outputConsole);
+
+        consoleList.stream()
+                .forEach(c ->
+                {
+                    if(c.getManufacturer().equals(desiredManufacturer)) {
+                        desiredConsoleList = Arrays.asList(c);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredConsoleList);
+
+        when(serviceLayer.getConsolesByManufacturer(desiredManufacturer)).thenReturn(desiredConsoleList);
 
         // ACT
 
-        mockMvc.perform(get("/consoles/manufacturer/Microsoft")) // perform get request
+        mockMvc.perform(get("/consoles/manufacturer/Sony")) // perform get request
                 .andDo(print()) // print results to console
-                .andExpect(status().isOk()); // ASSERT status code is 200
-                //.andExpect(content().json(outputJson)); // expect the object back
+                .andExpect(status().isOk()) // ASSERT status code is 200
+                .andExpect(content().json(outputJson)); // expect the object back
     }
 
     // testing PUT /consoles/{id}
