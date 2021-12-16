@@ -47,4 +47,19 @@ public class Processing_FeeJdbcTemplateDaoImplTest {
 
         assertEquals(desiredProcessing_Fee, actualProcessing_Fee);
     }
+
+    @Test
+    public void invalidProductType() {
+
+        // ARRANGE
+
+        String product_type = "Sweaters";
+        Processing_Fee desiredProcessing_Fee = new Processing_Fee();
+        desiredProcessing_Fee.setProductType(product_type);
+        desiredProcessing_Fee.setFee(new BigDecimal("14.99"));
+
+        // ASSERT
+
+        assertThrows(IllegalArgumentException.class, () -> processing_feeDao.getProcessing_Fee(product_type));
+    }
 }
