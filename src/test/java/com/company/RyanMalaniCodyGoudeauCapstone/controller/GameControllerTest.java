@@ -202,6 +202,14 @@ public class GameControllerTest {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -209,9 +217,21 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredESRB_Rating = "E";
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g -> {
+                    if(g.getEsrb_rating().equals(desiredESRB_Rating)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByESRB_Rating(desiredESRB_Rating)).thenReturn(desiredGameList);
 
         // ACT
 
@@ -228,6 +248,14 @@ public class GameControllerTest {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -235,13 +263,25 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredTitle = outputGame.getTitle();
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g -> {
+                    if(g.getTitle().equals(desiredTitle)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByTitle(desiredTitle)).thenReturn(desiredGameList);
 
         // ACT
 
-        mockMvc.perform(get("/games/title/Forza+Horizon+5")) // perform get request
+        mockMvc.perform(get("/games/title/Forza Horizon 5")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
