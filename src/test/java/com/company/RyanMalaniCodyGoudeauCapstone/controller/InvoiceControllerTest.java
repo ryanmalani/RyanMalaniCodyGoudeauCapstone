@@ -68,9 +68,9 @@ public class InvoiceControllerTest {
         inputInvoice.setName("Random");
         inputInvoice.setStreet("1256 Short Street");
         inputInvoice.setCity("Cincinnati");
-        inputInvoice.setState("Ohio");
+        inputInvoice.setState("OH");
         inputInvoice.setZipcode("45241");
-        inputInvoice.setItem_type("Console");
+        inputInvoice.setItem_type("Consoles");
         inputInvoice.setItem_id(1);
         inputInvoice.setUnit_price(new BigDecimal("239.99"));
         inputInvoice.setQuantity(1);

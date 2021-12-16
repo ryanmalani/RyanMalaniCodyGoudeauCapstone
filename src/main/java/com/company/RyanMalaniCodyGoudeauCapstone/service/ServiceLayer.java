@@ -162,7 +162,7 @@ public class ServiceLayer {
 
         String item_type = invoiceViewModel.getItem_type();
 
-        if(item_type.toLowerCase().equals("t-shirt")) {
+        if(item_type.toLowerCase().equals("t-shirts")) {
             T_Shirt purchasedT_Shirt = t_shirtInventoryDao.getT_Shirt(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedT_Shirt.getQuantity()) {
                 purchasedT_Shirt.setQuantity(purchasedT_Shirt.getQuantity() - invoiceViewModel.getQuantity());
@@ -183,7 +183,7 @@ public class ServiceLayer {
                 invoiceViewModel.setTotal(BigDecimal.valueOf(total));
             }
         }
-        else if(item_type.toLowerCase().equals("console")) {
+        else if(item_type.toLowerCase().equals("consoles")) {
             Console purchasedConsole = consoleInventoryDao.getConsole(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedConsole.getQuantity()) {
                 purchasedConsole.setQuantity(purchasedConsole.getQuantity() - invoiceViewModel.getQuantity());
@@ -204,7 +204,7 @@ public class ServiceLayer {
                 invoiceViewModel.setTotal(BigDecimal.valueOf(total));
             }
         }
-        else if(item_type.toLowerCase().equals("game")) {
+        else if(item_type.toLowerCase().equals("games")) {
             Game purchasedGame = gameInventoryDao.getGame(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedGame.getQuantity()) {
                 purchasedGame.setQuantity(purchasedGame.getQuantity() - invoiceViewModel.getQuantity());
