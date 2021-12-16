@@ -1,16 +1,20 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.service;
 
+import com.company.RyanMalaniCodyGoudeauCapstone.controller.ConsoleController;
 import com.company.RyanMalaniCodyGoudeauCapstone.dao.*;
 import com.company.RyanMalaniCodyGoudeauCapstone.model.*;
 import com.company.RyanMalaniCodyGoudeauCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
-public class ServiceLayer {
+@Repository
+public class ServiceLayer implements ConsoleInventoryDao {
 
     /*
     Sales tax applies only to the cost of the items.
@@ -22,12 +26,22 @@ public class ServiceLayer {
     Order must contain a valid state code.
     The REST API must properly handle and report all violations of business rules.
      */
-
+    @Autowired
     private ConsoleInventoryDao consoleInventoryDao;
+
+    @Autowired
     private GameInventoryDao gameInventoryDao;
+
+    @Autowired
     private InvoiceInventoryDao invoiceInventoryDao;
+
+    @Autowired
     private Processing_FeeDao processing_feeDao;
+
+    @Autowired
     private Sales_Tax_RateDao sales_tax_rateDao;
+
+    @Autowired
     private T_ShirtInventoryDao t_shirtInventoryDao;
 
 
@@ -143,5 +157,51 @@ public class ServiceLayer {
          */
 
         return invoiceViewModel;
+    }
+
+
+    @Override
+    public Console getConsole(int id) {
+
+        return consoleInventoryDao.getConsole(id);
+    }
+
+    @Override
+    public List<Console> getAllConsoles() {
+
+        List<Console> consoleList = consoleInventoryDao.getAllConsoles();
+
+        return consoleList;
+    }
+
+    @Override
+    public Console addConsole(Console console) {
+
+        return consoleInventoryDao.addConsole(console);
+    }
+
+    @Override
+    public void updateConsole(Console console) {
+
+        if (console.getId() != console.getId()) {
+            throw new IllegalArgumentException("Console ID must match parameter given.");
+        }
+
+        consoleInventoryDao.updateConsole(console);
+    }
+
+    @Override
+    public void deleteConsole(int id) {
+
+        consoleInventoryDao.deleteConsole(id);
+    }
+
+    @Override
+    public List<Console> getConsolesByManufacturer(String manufacturer) {
+
+        List<Console> consoleList = consoleInventoryDao.getConsolesByManufacturer(manufacturer);
+
+         return consoleInventoryDao.getConsolesByManufacturer(manufacturer);
+
     }
 }
