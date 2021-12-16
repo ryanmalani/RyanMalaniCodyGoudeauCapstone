@@ -1,23 +1,52 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Invoice {
 
+    @Id
     private int id;
+    @NotEmpty(message = "You must supply a value for name.")
+    @Size(max = 80, message = "You must supply a value less than 80 characters.")
     private String name;
+    @NotEmpty(message = "You must supply a value for street.")
+    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String street;
+    @NotEmpty(message = "You must supply a value for city.")
+    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String city;
+    @NotEmpty(message = "You must supply a value for state.")
+    @Size(max = 30, message = "You must supply a value less than 30 characters.")
     private String state;
+    @NotEmpty(message = "You must supply a value for zipcode.")
+    @Size(min = 5, max = 5, message = "You must supply a value with exactly 5 digits.")
     private String zipcode;
+    @NotEmpty(message = "You must supply a value for item type.")
+    @Size(max = 20, message = "You must supply a value less than 20 characters.")
     private String item_type;
     private int item_id;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal unit_price;
     private int quantity;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 9,fraction = 2)
     private BigDecimal subtotal;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal tax;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 3,fraction = 2)
     private BigDecimal processing_fee;
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 9,fraction = 2)
     private BigDecimal total;
 
 

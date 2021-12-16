@@ -11,8 +11,6 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class InvoiceViewModel {
@@ -56,9 +54,6 @@ public class InvoiceViewModel {
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 9,fraction = 2)
     private BigDecimal total;
-    private List<Console> consoles = new ArrayList<>();
-    private List<Game> games = new ArrayList<>();
-    private List<T_Shirt> t_shirts = new ArrayList<>();
 
     // getters and setters
 
@@ -174,29 +169,6 @@ public class InvoiceViewModel {
         this.total = total;
     }
 
-    public List<Console> getConsoles() {
-        return consoles;
-    }
-
-    public void setConsoles(List<Console> consoles) {
-        this.consoles = consoles;
-    }
-
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
-
-    public List<T_Shirt> getT_shirts() {
-        return t_shirts;
-    }
-
-    public void setT_shirts(List<T_Shirt> t_shirts) {
-        this.t_shirts = t_shirts;
-    }
     // equals and hashCode
 
     @Override
@@ -204,12 +176,12 @@ public class InvoiceViewModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceViewModel that = (InvoiceViewModel) o;
-        return id == that.id && item_id == that.item_id && quantity == that.quantity && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipcode, that.zipcode) && Objects.equals(item_type, that.item_type) && Objects.equals(unit_price, that.unit_price) && Objects.equals(subtotal, that.subtotal) && Objects.equals(tax, that.tax) && Objects.equals(processing_fee, that.processing_fee) && Objects.equals(total, that.total) && Objects.equals(consoles, that.consoles) && Objects.equals(games, that.games) && Objects.equals(t_shirts, that.t_shirts);
+        return id == that.id && item_id == that.item_id && quantity == that.quantity && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipcode, that.zipcode) && Objects.equals(item_type, that.item_type) && Objects.equals(unit_price, that.unit_price) && Objects.equals(subtotal, that.subtotal) && Objects.equals(tax, that.tax) && Objects.equals(processing_fee, that.processing_fee) && Objects.equals(total, that.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, street, city, state, zipcode, item_type, item_id, unit_price, quantity, subtotal, tax, processing_fee, total, consoles, games, t_shirts);
+        return Objects.hash(id, name, street, city, state, zipcode, item_type, item_id, unit_price, quantity, subtotal, tax, processing_fee, total);
     }
 
 
@@ -232,9 +204,6 @@ public class InvoiceViewModel {
                 ", tax=" + tax +
                 ", processing_fee=" + processing_fee +
                 ", total=" + total +
-                ", consoles=" + consoles +
-                ", games=" + games +
-                ", t_shirts=" + t_shirts +
                 '}';
     }
 }

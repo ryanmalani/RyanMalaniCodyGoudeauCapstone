@@ -7,16 +7,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,12 +33,14 @@ public class T_ShirtControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    private List<T_Shirt> t_shirtList;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private ServiceLayer serviceLayer;
+
+    private List<T_Shirt> t_shirtList;
+    private List<T_Shirt> desiredT_ShirtList;
 
     @Before
     public void setUp() throws Exception {
@@ -65,15 +71,7 @@ public class T_ShirtControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
-        T_Shirt outputT_Shirt = new T_Shirt();
-        outputT_Shirt.setSize("S");
-        outputT_Shirt.setColor("White");
-        outputT_Shirt.setDescription("Plain White Tee");
-        outputT_Shirt.setPrice(new BigDecimal("6.99"));
-        outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
-
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        when(serviceLayer.addT_Shirt(inputT_Shirt)).thenReturn(inputT_Shirt);
 
         // ACT
         mockMvc.perform(
@@ -83,10 +81,10 @@ public class T_ShirtControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().json(outputJson)); // ASSERT
+                .andExpect(content().json(inputJson)); // ASSERT
     }
 
-    // testing GET /t_shirts/{id}
+    // testing GET /t_shirts/id/{id}
 
     @Test
     public void shouldGetT_ShirtById() throws Exception {
@@ -99,13 +97,14 @@ public class T_ShirtControllerTest {
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
 
+        when(serviceLayer.getT_Shirt(1)).thenReturn(outputT_Shirt);
+
         // ACT
 
-        mockMvc.perform(get("/t_shirts/2")) // perform get request
+        mockMvc.perform(get("/t_shirts/id/1")) // perform get request
                         .andDo(print()) // print results to console
                         .andExpect(status().isOk()) // ASSERT status code is 200
                         .andExpect(content().json(outputJson)); // expect the object back
@@ -116,7 +115,29 @@ public class T_ShirtControllerTest {
     @Test
     public void shouldGetAllT_Shirts() throws Exception{
 
+        // ARRANGE
+
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
+        T_Shirt outputT_Shirt = new T_Shirt();
+        outputT_Shirt.setSize("S");
+        outputT_Shirt.setColor("White");
+        outputT_Shirt.setDescription("Plain White Tee");
+        outputT_Shirt.setPrice(new BigDecimal("6.99"));
+        outputT_Shirt.setQuantity(1);
+
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
         String outputJson = objectMapper.writeValueAsString(t_shirtList);
+
+        when(serviceLayer.getAllT_Shirts()).thenReturn(t_shirtList);
+
+        // ACT
 
         mockMvc.perform(get("/t_shirts")) // perform get request
                 .andDo(print()) // print results to console
@@ -124,51 +145,89 @@ public class T_ShirtControllerTest {
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /t_shirts/{color}
+    // testing GET /t_shirts/color/{color}
 
     @Test
     public void shouldGetT_ShirtsByColor() throws Exception {
 
         // ARRANGE
 
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
         T_Shirt outputT_Shirt = new T_Shirt();
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        String desiredColor = outputT_Shirt.getColor();
+
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
+        t_shirtList.stream()
+                .forEach(t -> {
+                    if(t.getColor().equals(desiredColor)) {
+                        desiredT_ShirtList = Arrays.asList(t);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredT_ShirtList);
+
+        when(serviceLayer.getT_ShirtsByColor(desiredColor)).thenReturn(desiredT_ShirtList);
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/White")) // perform get request
+        mockMvc.perform(get("/t_shirts/color/White")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /t_shirts/{size}
+    // testing GET /t_shirts/size/{size}
 
     @Test
     public void shouldGetT_ShirtsBySize() throws Exception {
 
         // ARRANGE
 
+        T_Shirt inputT_Shirt = new T_Shirt();
+        inputT_Shirt.setSize("M");
+        inputT_Shirt.setColor("Blue");
+        inputT_Shirt.setDescription("Blue Striped Long Sleeve");
+        inputT_Shirt.setPrice(new BigDecimal("9.99"));
+        inputT_Shirt.setQuantity(100);
+
         T_Shirt outputT_Shirt = new T_Shirt();
         outputT_Shirt.setSize("S");
         outputT_Shirt.setColor("White");
         outputT_Shirt.setDescription("Plain White Tee");
         outputT_Shirt.setPrice(new BigDecimal("6.99"));
         outputT_Shirt.setQuantity(1);
-        outputT_Shirt.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
+        String desiredSize = inputT_Shirt.getSize();
+
+        t_shirtList = Arrays.asList(inputT_Shirt, outputT_Shirt);
+
+        t_shirtList.stream()
+                .forEach(t -> {
+                    if(t.getSize().equals(desiredSize)) {
+                        desiredT_ShirtList = Arrays.asList(t);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredT_ShirtList);
+
+        when(serviceLayer.getT_ShirtsBySize(desiredSize)).thenReturn(desiredT_ShirtList);
 
         // ACT
 
-        mockMvc.perform(get("/t_shirts/S")) // perform get request
+        mockMvc.perform(get("/t_shirts/size/M")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
@@ -208,7 +267,7 @@ public class T_ShirtControllerTest {
 
         // This method returns nothing, so we're just checking for correct status code
         // In this case, code 204, which indicates No Content
-        mockMvc.perform(delete("/records/5"))
+        mockMvc.perform(delete("/t_shirts/5"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -225,15 +284,6 @@ public class T_ShirtControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
-//        T_Shirt outputT_Shirt = new T_Shirt();
-//        outputT_Shirt.setColor("White");
-//        outputT_Shirt.setDescription("Plain White Tee");
-//        outputT_Shirt.setPrice("6.99");
-//        outputT_Shirt.setQuantity(1);
-//        outputT_Shirt.setId(2);
-//
-//        String outputJson = objectMapper.writeValueAsString(outputT_Shirt);
-
         // ACT
         mockMvc.perform(
                         post("/t_shirts")                                // perform the POST request
@@ -244,12 +294,12 @@ public class T_ShirtControllerTest {
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
 
-    @Test
-    public void shouldReturn404StatusCodeIfRecordNotFound() throws Exception {
-        mockMvc.perform(get("/t_shirts/0"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void shouldReturn404StatusCodeIfT_ShirtNotFound() throws Exception {
+//        mockMvc.perform(get("/t_shirts/id/0"))
+//                .andDo(print())
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {

@@ -14,9 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,12 +31,14 @@ public class GameControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    private List<Game> gameList;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private ServiceLayer serviceLayer;
+
+    private List<Game> gameList;
+    private List<Game> desiredGameList;
 
     @Before
     public void setUp() throws Exception {
@@ -68,16 +72,7 @@ public class GameControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputGame);
 
-        Game outputGame = new Game();
-        outputGame.setTitle("Forza Horizon 5");
-        outputGame.setEsrb_rating("E");
-        outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
-        outputGame.setPrice(new BigDecimal("55.99"));
-        outputGame.setStudio("Turn10");
-        outputGame.setQuantity(1);
-        outputGame.setId(2);
-
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        when(serviceLayer.addGame(inputGame)).thenReturn(inputGame);
 
         // ACT
 
@@ -88,10 +83,10 @@ public class GameControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().json(outputJson)); // ASSERT
+                .andExpect(content().json(inputJson)); // ASSERT
     }
 
-    // testing GET /games/{id}
+    // testing GET /games/id/{id}
 
     @Test
     public void shouldGetGameById() throws Exception {
@@ -105,13 +100,14 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputGame);
 
+        when(serviceLayer.getGame(1)).thenReturn(outputGame);
+
         // ACT
 
-        mockMvc.perform(get("/games/2")) // perform get request
+        mockMvc.perform(get("/games/id/1")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
@@ -120,9 +116,33 @@ public class GameControllerTest {
     // testing GET /games
 
     @Test
-    public void shouldGetAllGames() throws Exception{
+    public void shouldGetAllGames() throws Exception {
+
+        // ARRANGE
+
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
+        Game outputGame = new Game();
+        outputGame.setTitle("Forza Horizon 5");
+        outputGame.setEsrb_rating("E");
+        outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
+        outputGame.setPrice(new BigDecimal("55.99"));
+        outputGame.setStudio("Turn10");
+        outputGame.setQuantity(1);
+
+        gameList = Arrays.asList(inputGame, outputGame);
 
         String outputJson = objectMapper.writeValueAsString(gameList);
+
+        when(serviceLayer.getAllGames()).thenReturn(gameList);
+
+        // ACT
 
         mockMvc.perform(get("/games")) // perform get request
                 .andDo(print()) // print results to console
@@ -130,13 +150,21 @@ public class GameControllerTest {
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /games/{studio}
+    // testing GET /games/studio/studio}
 
     @Test
     public void shouldGetGamesByStudio() throws Exception {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -144,25 +172,46 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredStudio = outputGame.getStudio();
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g ->
+                {
+                    if(g.getStudio().equals(desiredStudio)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByStudio(desiredStudio)).thenReturn(desiredGameList);
 
         // ACT
 
-        mockMvc.perform(get("/games/Turn10")) // perform get request
+        mockMvc.perform(get("/games/studio/Turn10")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /games/{esrb_rating}
+    // testing GET /games/esrb_rating/{esrb_rating}
 
     @Test
     public void shouldGetGamesByEsrbRating() throws Exception {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -170,25 +219,45 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredESRB_Rating = "E";
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g -> {
+                    if(g.getEsrb_rating().equals(desiredESRB_Rating)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByESRB_Rating(desiredESRB_Rating)).thenReturn(desiredGameList);
 
         // ACT
 
-        mockMvc.perform(get("/games/E")) // perform get request
+        mockMvc.perform(get("/games/esrb_rating/E")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
     }
 
-    // testing GET /games/{title}
+    // testing GET /games/title/{title}
 
     @Test
     public void shouldGetGamesByTitle() throws Exception {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -196,13 +265,25 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredTitle = outputGame.getTitle();
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g -> {
+                    if(g.getTitle().equals(desiredTitle)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByTitle(desiredTitle)).thenReturn(desiredGameList);
 
         // ACT
 
-        mockMvc.perform(get("/games/Forza+Horizon+5")) // perform get request
+        mockMvc.perform(get("/games/title/Forza Horizon 5")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
@@ -277,13 +358,30 @@ public class GameControllerTest {
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
 
-    @Test
-    public void shouldReturn404StatusCodeIfRecordNotFound() throws Exception {
-
-        mockMvc.perform(get("/games/0"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void shouldReturn404StatusCodeIfGameNotFound() throws Exception {
+//
+//        // ARRANGE
+//
+//        Game outputGame = new Game();
+//        outputGame.setTitle("Forza Horizon 5");
+//        outputGame.setEsrb_rating("E");
+//        outputGame.setDescription("Lead breathtaking expeditions across the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.");
+//        outputGame.setPrice(new BigDecimal("55.99"));
+//        outputGame.setStudio("Random");
+//        outputGame.setQuantity(1);
+//        outputGame.setId(2);
+//
+//        String outputJson = objectMapper.writeValueAsString(outputGame);
+//
+//        when(serviceLayer.getGamesByStudio(outputGame.getStudio())).thenReturn(outputGame);
+//
+//        // ACT
+//
+//        mockMvc.perform(get("/games/studio/Turn10"))
+//                .andDo(print())
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {
