@@ -14,9 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,6 +36,9 @@ public class GameControllerTest {
 
     @MockBean
     private ServiceLayer serviceLayer;
+
+    private List<Game> gameList;
+    private List<Game> desiredGameList;
 
     @Before
     public void setUp() throws Exception {
@@ -93,13 +98,14 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
         String outputJson = objectMapper.writeValueAsString(outputGame);
 
+        when(serviceLayer.getGame(1)).thenReturn(outputGame);
+
         // ACT
 
-        mockMvc.perform(get("/games/id/2")) // perform get request
+        mockMvc.perform(get("/games/id/1")) // perform get request
                 .andDo(print()) // print results to console
                 .andExpect(status().isOk()) // ASSERT status code is 200
                 .andExpect(content().json(outputJson)); // expect the object back
@@ -108,7 +114,17 @@ public class GameControllerTest {
     // testing GET /games
 
     @Test
-    public void shouldGetAllGames() throws Exception{
+    public void shouldGetAllGames() throws Exception {
+
+        // ARRANGE
+
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
 
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
@@ -118,7 +134,13 @@ public class GameControllerTest {
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        String outputJson = objectMapper.writeValueAsString(gameList);
+
+        when(serviceLayer.getAllGames()).thenReturn(gameList);
+
+        // ACT
 
         mockMvc.perform(get("/games")) // perform get request
                 .andDo(print()) // print results to console
@@ -133,6 +155,14 @@ public class GameControllerTest {
 
         // ARRANGE
 
+        Game inputGame = new Game();
+        inputGame.setTitle("Madden NFL 22");
+        inputGame.setEsrb_rating("E");
+        inputGame.setDescription("American football video game based on the National Football League");
+        inputGame.setPrice(new BigDecimal("33.99"));
+        inputGame.setStudio("EA Tiburon");
+        inputGame.setQuantity(5);
+
         Game outputGame = new Game();
         outputGame.setTitle("Forza Horizon 5");
         outputGame.setEsrb_rating("E");
@@ -140,9 +170,22 @@ public class GameControllerTest {
         outputGame.setPrice(new BigDecimal("55.99"));
         outputGame.setStudio("Turn10");
         outputGame.setQuantity(1);
-        outputGame.setId(2);
 
-        String outputJson = objectMapper.writeValueAsString(outputGame);
+        String desiredStudio = outputGame.getStudio();
+
+        gameList = Arrays.asList(inputGame, outputGame);
+
+        gameList.stream()
+                .forEach(g ->
+                {
+                    if(g.getStudio().equals(desiredStudio)) {
+                        desiredGameList = Arrays.asList(g);
+                    }
+                });
+
+        String outputJson = objectMapper.writeValueAsString(desiredGameList);
+
+        when(serviceLayer.getGamesByStudio(desiredStudio)).thenReturn(desiredGameList);
 
         // ACT
 
