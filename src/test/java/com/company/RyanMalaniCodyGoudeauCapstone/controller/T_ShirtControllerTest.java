@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -208,7 +210,7 @@ public class T_ShirtControllerTest {
 
         // This method returns nothing, so we're just checking for correct status code
         // In this case, code 204, which indicates No Content
-        mockMvc.perform(delete("/records/5"))
+        mockMvc.perform(delete("/t_shirts/5"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

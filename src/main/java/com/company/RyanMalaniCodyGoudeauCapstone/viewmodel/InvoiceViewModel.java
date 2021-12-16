@@ -11,8 +11,6 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class InvoiceViewModel {
@@ -56,9 +54,6 @@ public class InvoiceViewModel {
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 9,fraction = 2)
     private BigDecimal total;
-    private List<Console> consoles = new ArrayList<>();
-    private List<Game> games = new ArrayList<>();
-    private List<T_Shirt> t_shirts = new ArrayList<>();
 
     // getters and setters
 
@@ -174,29 +169,6 @@ public class InvoiceViewModel {
         this.total = total;
     }
 
-    public List<Console> getConsoles() {
-        return consoles;
-    }
-
-    public void setConsoles(List<Console> consoles) {
-        this.consoles = consoles;
-    }
-
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
-
-    public List<T_Shirt> getT_shirts() {
-        return t_shirts;
-    }
-
-    public void setT_shirts(List<T_Shirt> t_shirts) {
-        this.t_shirts = t_shirts;
-    }
     // equals and hashCode
 
     @Override

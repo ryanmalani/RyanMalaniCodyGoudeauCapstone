@@ -16,8 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/invoice")
 public class InvoiceController {
 
-    private InvoiceInventoryDao invoiceDao;
-
+    @Autowired
     private ServiceLayer serviceLayer;
 
     @Autowired
@@ -30,63 +29,8 @@ public class InvoiceController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public InvoiceViewModel createInvoice(@RequestBody @Valid Invoice invoice) {
-
-        InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
-
-        invoiceViewModel.setName(invoice.getName());
-        invoiceViewModel.setStreet(invoice.getStreet());
-        invoiceViewModel.setCity(invoice.getCity());
-        invoiceViewModel.setState(invoice.getState());
-        invoiceViewModel.setZipcode(invoice.getZipcode());
-        invoiceViewModel.setItem_type(invoice.getItem_type());
-        invoiceViewModel.setItem_id(invoice.getItem_id());
-        invoiceViewModel.setQuantity(invoice.getQuantity());
+    public InvoiceViewModel createInvoice(@RequestBody @Valid InvoiceViewModel invoiceViewModel) {
 
         return serviceLayer.createInvoice(invoiceViewModel);
-    }
-
-    // Read
-
-    @GetMapping(value = "/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Invoice getInvoiceById(@PathVariable int id) {
-
-        return invoiceDao.getInvoice(id);
-    }
-
-    @GetMapping
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Invoice> getAllInvoices() {
-
-        List<Invoice> invoiceList = invoiceDao.getAllInvoices();
-        return invoiceList;
-
-    }
-
-    // Update
-
-    @PutMapping(value = "/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateInvoice(@PathVariable int id, @RequestBody @Valid Invoice invoice) {
-
-//        if (invoice.getId() == id) {
-//            invoice.setId(id);
-//        }
-
-        if (invoice.getId() != id) {
-            throw new IllegalArgumentException("Invoice ID must match parameter given");
-        }
-
-        invoiceDao.updateInvoice(invoice);
-    }
-
-    // Delete
-
-    @DeleteMapping(value = "/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteInvoice(@PathVariable int id) {
-
-        invoiceDao.deleteInvoice(id);
     }
 }

@@ -31,7 +31,7 @@ public class T_ShirtController {
 
     // Read
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public T_Shirt getT_ShirtById(@PathVariable int id) {
 
@@ -47,7 +47,7 @@ public class T_ShirtController {
         return t_shirtList;
     }
 
-    @GetMapping(value = "/{color}")
+    @GetMapping(value = "/color/{color}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<T_Shirt> getT_ShirtsByColor(@PathVariable String color) {
 
@@ -55,7 +55,7 @@ public class T_ShirtController {
         return  t_shirtList;
     }
 
-    @GetMapping(value = "/{size}")
+    @GetMapping(value = "/size/{size}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<T_Shirt> getT_ShirtsBySize(@PathVariable String size) {
 
