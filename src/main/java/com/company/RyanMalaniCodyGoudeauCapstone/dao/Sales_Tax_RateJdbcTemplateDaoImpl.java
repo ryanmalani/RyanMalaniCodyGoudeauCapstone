@@ -1,6 +1,7 @@
 package com.company.RyanMalaniCodyGoudeauCapstone.dao;
 
 import com.company.RyanMalaniCodyGoudeauCapstone.model.Sales_Tax_Rate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ public class Sales_Tax_RateJdbcTemplateDaoImpl implements Sales_Tax_RateDao {
     private static final String SELECT_SALES_TAX_RATE_SQL =
             "select * from sales_tax_rate where state = ?";
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public Sales_Tax_RateJdbcTemplateDaoImpl() {
