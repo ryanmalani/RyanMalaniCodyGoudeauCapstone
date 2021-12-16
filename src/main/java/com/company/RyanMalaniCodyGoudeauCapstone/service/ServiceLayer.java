@@ -127,8 +127,45 @@ public class ServiceLayer {
 
     @Override
     public T_Shirt addT_Shirt(T_Shirt t_shirt) {
-        return
+        return t_shirtInventoryDao.addT_Shirt(t_shirt);
     }
+
+    // READ t_shirt
+
+    @Override
+    public T_Shirt getT_Shirt(int t_shirt_id) {
+        return t_shirtInventoryDao.getT_Shirt(t_shirt_id);
+    }
+
+    @Override
+    public List<T_Shirt> getAllT_Shirts() {
+        return t_shirtInventoryDao.getAllT_Shirts();
+    }
+
+    @Override
+    public List<T_Shirt> getT_ShirtsByColor(String color) {
+        return t_shirtInventoryDao.getT_ShirtsByColor(color);
+    }
+
+    @Override
+    public List<T_Shirt> getT_ShirtsBySize(String size) {
+        return t_shirtInventoryDao.getT_ShirtsBySize(size);
+    }
+
+    // UPDATE t_shirt
+
+    @Override
+    public void updateT_Shirt(T_Shirt t_shirt) {
+        t_shirtInventoryDao.updateT_Shirt(t_shirt);
+    }
+
+    // DELETE t_shirt
+
+    @Override
+    public void deleteT_Shirt(int t_shirt_id) {
+        t_shirtInventoryDao.deleteT_Shirt(t_shirt_id);
+    }
+
 
     private double getProcessing_Fee(int quantity, Processing_Fee processing_fee) {
 
