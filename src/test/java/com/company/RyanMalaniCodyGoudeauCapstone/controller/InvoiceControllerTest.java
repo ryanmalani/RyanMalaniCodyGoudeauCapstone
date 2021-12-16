@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -81,6 +82,8 @@ public class InvoiceControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputInvoice);
 
+        when(serviceLayer.createInvoice(inputInvoice)).thenReturn(inputInvoice);
+
         // ACT
 
         mockMvc.perform(
@@ -89,6 +92,7 @@ public class InvoiceControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
                 )
                 .andDo(print())
-                .andExpect(status().isCreated()); // ASSERT
+                .andExpect(status().isCreated())
+                .andExpect(content().json(inputJson)); // ASSERT
     }
 }

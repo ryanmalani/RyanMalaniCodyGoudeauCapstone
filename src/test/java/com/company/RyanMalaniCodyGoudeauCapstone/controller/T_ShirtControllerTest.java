@@ -71,6 +71,8 @@ public class T_ShirtControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputT_Shirt);
 
+        when(serviceLayer.addT_Shirt(inputT_Shirt)).thenReturn(inputT_Shirt);
+
         // ACT
         mockMvc.perform(
                         post("/t_shirts") // perform post request

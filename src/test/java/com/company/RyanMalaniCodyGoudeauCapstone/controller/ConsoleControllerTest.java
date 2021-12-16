@@ -72,6 +72,8 @@ public class ConsoleControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputConsole);
 
+        when(serviceLayer.addConsole(inputConsole)).thenReturn(inputConsole);
+
         // ACT
         mockMvc.perform(
                 post("/consoles") // perform post request
@@ -79,7 +81,8 @@ public class ConsoleControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
         )
                 .andDo(print())
-                .andExpect(status().isCreated()); // ASSERT
+                .andExpect(status().isCreated())
+                .andExpect(content().json(inputJson)); // ASSERT
     }
 
     // testing GET /consoles/id/{id}

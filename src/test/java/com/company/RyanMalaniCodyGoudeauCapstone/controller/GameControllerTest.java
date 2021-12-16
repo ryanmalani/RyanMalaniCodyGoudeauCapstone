@@ -72,6 +72,8 @@ public class GameControllerTest {
         // Convert Java Object to JSON
         String inputJson = objectMapper.writeValueAsString(inputGame);
 
+        when(serviceLayer.addGame(inputGame)).thenReturn(inputGame);
+
         // ACT
 
         mockMvc.perform(
