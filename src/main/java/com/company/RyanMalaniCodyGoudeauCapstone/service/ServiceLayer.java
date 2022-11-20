@@ -24,18 +24,22 @@ public class ServiceLayer {
     The REST API must properly handle and report all violations of business rules.
      */
 
+    final ConsoleInventoryDao consoleInventoryDao;
+    final GameInventoryDao gameInventoryDao;
+    final T_ShirtInventoryDao t_shirtInventoryDao;
+    final InvoiceInventoryDao invoiceInventoryDao;
+    final Processing_FeeDao processing_feeDao;
+    final Sales_Tax_RateDao sales_tax_rateDao;
+
     @Autowired
-    private ConsoleInventoryDao consoleInventoryDao;
-    @Autowired
-    private GameInventoryDao gameInventoryDao;
-    @Autowired
-    private InvoiceInventoryDao invoiceInventoryDao;
-    @Autowired
-    private Processing_FeeDao processing_feeDao;
-    @Autowired
-    private Sales_Tax_RateDao sales_tax_rateDao;
-    @Autowired
-    private T_ShirtInventoryDao t_shirtInventoryDao;
+    public ServiceLayer(ConsoleInventoryDao consoleInventoryDao, GameInventoryDao gameInventoryDao, InvoiceInventoryDao invoiceInventoryDao, Processing_FeeDao processing_feeDao, Sales_Tax_RateDao sales_tax_rateDao,T_ShirtInventoryDao t_shirtInventoryDao) {
+        this.consoleInventoryDao = consoleInventoryDao;
+        this.gameInventoryDao = gameInventoryDao;
+        this.invoiceInventoryDao = invoiceInventoryDao;
+        this.processing_feeDao = processing_feeDao;
+        this.sales_tax_rateDao = sales_tax_rateDao;
+        this.t_shirtInventoryDao = t_shirtInventoryDao;
+    }
 
     // CREATE console
 
@@ -162,7 +166,7 @@ public class ServiceLayer {
 
         String item_type = invoiceViewModel.getItem_type();
 
-        if(item_type.toLowerCase().equals("t-shirts")) {
+        if(item_type.toLowerCase().equals("t-shirt")) {
             T_Shirt purchasedT_Shirt = t_shirtInventoryDao.getT_Shirt(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedT_Shirt.getQuantity()) {
                 purchasedT_Shirt.setQuantity(purchasedT_Shirt.getQuantity() - invoiceViewModel.getQuantity());
@@ -183,7 +187,7 @@ public class ServiceLayer {
                 invoiceViewModel.setTotal(BigDecimal.valueOf(total));
             }
         }
-        else if(item_type.toLowerCase().equals("consoles")) {
+        else if(item_type.toLowerCase().equals("console")) {
             Console purchasedConsole = consoleInventoryDao.getConsole(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedConsole.getQuantity()) {
                 purchasedConsole.setQuantity(purchasedConsole.getQuantity() - invoiceViewModel.getQuantity());
@@ -204,7 +208,7 @@ public class ServiceLayer {
                 invoiceViewModel.setTotal(BigDecimal.valueOf(total));
             }
         }
-        else if(item_type.toLowerCase().equals("games")) {
+        else if(item_type.toLowerCase().equals("game")) {
             Game purchasedGame = gameInventoryDao.getGame(invoiceViewModel.getItem_id());
             if(invoiceViewModel.getQuantity() <= purchasedGame.getQuantity()) {
                 purchasedGame.setQuantity(purchasedGame.getQuantity() - invoiceViewModel.getQuantity());
