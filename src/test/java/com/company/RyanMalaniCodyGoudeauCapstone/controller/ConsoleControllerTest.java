@@ -76,10 +76,10 @@ public class ConsoleControllerTest {
 
         // ACT
         mockMvc.perform(
-                post("/consoles") // perform post request
-                        .content(inputJson)  // set request body
-                        .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
-        )
+                        post("/consoles") // perform post request
+                                .content(inputJson)  // set request body
+                                .contentType(MediaType.APPLICATION_JSON)    // tell server it's json
+                )
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json(inputJson)); // ASSERT
@@ -260,29 +260,6 @@ public class ConsoleControllerTest {
                 .andDo(print())                                     // print results to console
                 .andExpect(status().isUnprocessableEntity());                   // ASSERT (status code is 422)
     }
-
-//    @Test
-//    public void shouldReturn404StatusCodeIfConsoleNotFound() throws Exception {
-//
-//        // ARRANGE
-//
-//        Console outputConsole = new Console();
-//        outputConsole.setModel("Xbox One");
-//        outputConsole.setManufacturer("Microsoft");
-//        outputConsole.setMemory_amount("500GB");
-//        outputConsole.setProcessor("AMD Jaguar");
-//        outputConsole.setPrice(new BigDecimal("239.99"));
-//        outputConsole.setQuantity(1);
-//        outputConsole.setId(2);
-//
-//        String outputJson = objectMapper.writeValueAsString(outputConsole);
-//
-//        // ACT
-//
-//        mockMvc.perform(get("/consoles/id/100"))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
 
     @Test
     public void shouldReturn422StatusCodeIfIdsDoNotMatch() throws Exception {

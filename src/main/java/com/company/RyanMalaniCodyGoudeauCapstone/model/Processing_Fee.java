@@ -16,6 +16,16 @@ public class Processing_Fee {
     @Digits(integer = 2,fraction = 2)
     private BigDecimal fee;
 
+    // constructors
+
+    public Processing_Fee() {
+    }
+
+    public Processing_Fee(String productType, BigDecimal fee) {
+        this.productType = productType;
+        this.fee = fee;
+    }
+
     // getters and setters
 
     public String getProductType() {
